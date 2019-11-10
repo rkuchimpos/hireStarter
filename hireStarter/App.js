@@ -1,33 +1,42 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import {createAppContainer} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
-import HomeScreen from './screens/HomeScreen';
-import ProfileScreen from './screens/ProfileScreen';
-import MatchesScreen from './screens/MatchesScreen';
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { createAppContainer } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
+import { LinearGradient } from "expo-linear-gradient";
+import HomeScreen from "./screens/HomeScreen";
+import ProfileScreen from "./screens/ProfileScreen";
+import MatchesScreen from "./screens/MatchesScreen";
 
-const MainNavigator = createStackNavigator({
-  Home: {
-    screen: HomeScreen,
+const MainNavigator = createStackNavigator(
+  {
+    Home: {
+      screen: HomeScreen
+    },
+    Profile: {
+      screen: ProfileScreen
+    },
+    Matches: {
+      screen: MatchesScreen
+    }
   },
-  Profile: {
-    screen: ProfileScreen,
-  },
-  Matches: {
-    screen: MatchesScreen,
+  {
+    initialRouteName: "Home",
+    defaultNavigationOptions: {
+      headerBackground: (
+        <LinearGradient
+          style={{ flex: 1 }}
+          colors={["#8E2DE2", "#4A00E0"]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+        />
+      ),
+      headerTintColor: "#fff",
+      headerTitleStyle: {
+        fontWeight: "normal"
+      }
+    }
   }
-}, {
-  initialRouteName: 'Home',
-  defaultNavigationOptions: {
-    headerStyle: {
-      backgroundColor: '#3f00a4',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
-  },
-});
+);
 
 const App = createAppContainer(MainNavigator);
 export default App;

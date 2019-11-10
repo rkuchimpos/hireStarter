@@ -12,9 +12,11 @@ class Skill extends React.Component {
 }
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#2522b8',
+    backgroundColor: '#FF5F6D',
     borderRadius: 20,
     padding: 8,
+    paddingLeft: 10,
+    paddingRight: 10,
     alignSelf: 'flex-start',
   },
   skill: {

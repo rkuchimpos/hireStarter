@@ -1,17 +1,21 @@
-import React from 'react';
-import { Text } from 'react-native';
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 
 class MatchesScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: "My Connections",
+      title: "My Connections"
     };
   };
   render() {
-    return (
-      <Text>MatchesScreen</Text>
-    );
+    return <View style={styles.container}></View>;
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    margin: 10
+  }
+});
 
 export default MatchesScreen;
