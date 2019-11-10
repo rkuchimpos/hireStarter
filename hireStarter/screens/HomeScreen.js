@@ -1,6 +1,11 @@
 import React from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, Image, StyleSheet, Text, View } from "react-native";
 import Card from "../components/Card";
+
+
+
+import SwiperFlatList from "react-native-swiper-flatlist";
+
 
 class HomeScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -21,10 +26,12 @@ class HomeScreen extends React.Component {
     };
   };
   render() {
+    images = ['https://i.imgur.com/cMFc42W.png', 'https://i.imgur.com/6B55OIA.png'];
     // TODO: Display stack of cards instead of a single, hard-coded one
     return (
       <View style={styles.container}>
         <Card
+          photos={['https://i.imgur.com/cMFc42W.png', 'https://i.imgur.com/6B55OIA.png']}
           name={"Bob Boon, Jr."}
           location={"University of California, Los Angeles"}
           description={
@@ -47,7 +54,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   container: {
-    margin: 10
+    margin: 10,
   }
 });
 

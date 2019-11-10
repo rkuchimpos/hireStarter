@@ -1,12 +1,25 @@
 import React from "react";
-import { Image, Platform, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Image, Platform, StyleSheet, Text, View } from "react-native";
+import SwiperFlatList from "react-native-swiper-flatlist";
 import Skill from "./Skill";
+
+const { width } = Dimensions.get('window');
 
 class Card extends React.Component {
   render() {
+    console.log(this.props.photos);
     return (
       <View style={styles.card}>
-        <Image style={styles.image} source={require("../assets/baboon.png")} />
+        <View>
+          <SwiperFlatList
+            index={0}
+            data={this.props.photos}
+            renderItem={({ item }) => (
+              <Image resizeMode="cover" style={styles.image} source={{ uri: item }} />
+            )}
+            showPagination
+          />
+        </View>
         <View style={styles.profileInfo}>
           <Text style={styles.name}>{this.props.name}</Text>
           <Text style={styles.subtitle}>{this.props.location}</Text>
@@ -28,7 +41,7 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: "#fff",
     shadowColor: "#000",
-    borderRadius: 10,
+    borderRadius: 0,
     ...Platform.select({
       ios: {
         shadowRadius: 10,
@@ -44,10 +57,8 @@ const styles = StyleSheet.create({
     })
   },
   image: {
-    width: null,
+    width: width - 20,
     height: 350,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10
   },
   profileInfo: {
     margin: 10
