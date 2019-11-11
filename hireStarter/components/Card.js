@@ -8,6 +8,7 @@ const { width } = Dimensions.get('window');
 class Card extends React.Component {
   render() {
     return (
+      <View style={styles.cardWrapper}>
       <View style={styles.card}>
         <View>
           <SwiperFlatList
@@ -32,27 +33,32 @@ class Card extends React.Component {
           </View>
         </View>
       </View>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  cardWrapper: {
+    ...Platform.select({
+      ios: {
+        shadowColor: "#000",
+        shadowRadius: 1,
+        shadowOpacity: 0.5,
+        shadowOffset: {
+          width: 0,
+          height: 0,
+        }
+      },
+    })
+  },
   card: {
     overflow: 'hidden',
     backgroundColor: "#fff",
-    shadowColor: "#000",
     borderRadius: 10,
     ...Platform.select({
-      ios: {
-        shadowRadius: 10,
-        shadowOpacity: 1.0,
-        shadowOffset: {
-          width: 0,
-          height: 0
-        }
-      },
       android: {
-        elevation: 5
+        elevation: 1,
       }
     })
   },
