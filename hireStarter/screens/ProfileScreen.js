@@ -1,20 +1,61 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
+
+const { width } = Dimensions.get("window");
 
 class ProfileScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: "My Profile"
+      title: "Edit Profile"
     };
   };
   render() {
-    return <View style={styles.container}></View>;
+    const mockUser = {
+      name: "Joe Bruin",
+      uid: 1,
+      photos: [
+        "https://i.imgur.com/cMFc42W.png",
+        "https://i.imgur.com/6B55OIA.png"
+      ],
+      location: "University of California, Los Angeles",
+      skills: [
+        "C++",
+        "Python",
+        "Machine Learning",
+        "Distributed Computing",
+        "Computer Vision"
+      ],
+      description:
+        "Yo, my name is Bob and I am looking for full-time work as a software engineer. Outside of work, I enjoy swinging across trees and skateboarding with my friends."
+    };
+    return (
+      <View style={styles.container}>
+        <View style={{flexDirection: "row"}}>
+          <Image style={{flex: 1, height: width / 2, width: width / 2}} source={{uri: mockUser.photos[0]}}/>
+          <Image style={{flex: 1, height: width / 2, width: width / 2}} source={{uri: mockUser.photos[1]}}/>
+        </View>
+        <Text style={styles.categoryHeader}>About Me</Text>
+        <View style={{backgroundColor: "#fff"}}>
+          <Text style={{margin: 10}}>{mockUser.description}</Text>
+        </View>
+      </View>
+    );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    margin: 10
+    padding: 0,
+    flex: 1,
+    backgroundColor: "#e5e5e5"
+  },
+  profilePhoto: {
+    width: width
+  },
+  categoryHeader: {
+    fontSize: 20,
+    color: "#414141",
+    margin: 10,
   }
 });
 
