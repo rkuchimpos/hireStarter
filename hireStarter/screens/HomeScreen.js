@@ -96,6 +96,11 @@ class HomeScreen extends React.Component {
       <View style={styles.container}>
         <CardStack
           verticalSwipe={false}
+          renderNoMoreCards={() => (
+            <Text style={{ fontSize: 18, color: "gray", alignSelf: "center" }}>
+              That's all for now.
+            </Text>
+          )}
           ref={swiper => {
             this.swiper = swiper;
           }}
@@ -132,7 +137,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     flex: 1,
-    backgroundColor: "#e5e5e5"
+    backgroundColor: "#e5e5e5",
   }
 });
 
