@@ -7,7 +7,6 @@ const { width } = Dimensions.get('window');
 
 class Card extends React.Component {
   render() {
-    console.log(this.props.photos);
     return (
       <View style={styles.card}>
         <View>

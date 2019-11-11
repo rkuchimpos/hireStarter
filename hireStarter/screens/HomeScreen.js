@@ -27,10 +27,6 @@ class HomeScreen extends React.Component {
     };
   };
   render() {
-    images = [
-      "https://i.imgur.com/cMFc42W.png",
-      "https://i.imgur.com/6B55OIA.png"
-    ];
     // TODO: Display stack of cards instead of a single, hard-coded one
     return (
       <View style={styles.container}>
