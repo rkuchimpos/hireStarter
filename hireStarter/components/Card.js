@@ -38,9 +38,10 @@ class Card extends React.Component {
 
 const styles = StyleSheet.create({
   card: {
+    overflow: 'hidden',
     backgroundColor: "#fff",
     shadowColor: "#000",
-    borderRadius: 0,
+    borderRadius: 10,
     ...Platform.select({
       ios: {
         shadowRadius: 10,

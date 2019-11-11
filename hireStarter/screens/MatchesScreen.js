@@ -117,12 +117,15 @@ class MatchesScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    paddingTop: 10,
     flex: 1,
     backgroundColor: "#e5e5e5"
   },
   listEntry: {
+    marginLeft: 10,
+    marginRight: 10,
     padding: 10,
+    borderRadius: 5,
     flexDirection: "row",
     backgroundColor: "#fff",
     marginBottom: 10,
