@@ -9,13 +9,17 @@ class LoginScreen extends React.Component {
     };
   };
 
-  state = {modalVisible: false};
+  state = {
+    modalVisible: false,
+    popupsActive: false
+  };
 
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
   }
 
   render() {
+    const {navigate} = this.props.navigation;
     return (
       <LinearGradient
           colors={["#8E2DE2", "#4A00E0"]}
@@ -31,10 +35,14 @@ class LoginScreen extends React.Component {
           this.setModalVisible(!this.state.modalVisible);
         }}>
         <View style={styles.popup}>
-          <TouchableOpacity style={styles.googleButton} onPress={() => {this.setModalVisible(false);}}>
+          <TouchableOpacity style={styles.googleButton} onPress={() => {
+            this.setModalVisible(false);
+            navigate('Home');}}>
             <Text style={styles.text}> Google </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.facebookButton} onPress={() => {this.setModalVisible(false);}}>
+          <TouchableOpacity style={styles.facebookButton} onPress={() => {
+            this.setModalVisible(false);
+            navigate('Home');}}>
             <Text style={styles.text}> Facebook </Text>
           </TouchableOpacity>
         </View>

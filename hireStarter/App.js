@@ -6,6 +6,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import HomeScreen from "./screens/HomeScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import MatchesScreen from "./screens/MatchesScreen";
+import LoginScreen from "./screens/LoginScreen";
 
 const MainNavigator = createStackNavigator(
   {
@@ -17,10 +18,13 @@ const MainNavigator = createStackNavigator(
     },
     Matches: {
       screen: MatchesScreen
+    },
+    Login: {
+      screen: LoginScreen
     }
   },
   {
-    initialRouteName: "Home",
+    initialRouteName: "Login",
     defaultNavigationOptions: {
       headerBackground: (
         <LinearGradient
