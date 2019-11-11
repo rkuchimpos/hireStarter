@@ -14,9 +14,10 @@ function Item({ name, photo, location, skills }) {
     <TouchableOpacity>
       <View style={styles.listEntry}>
         <Image style={styles.image} source={{ uri: photo }} />
-        <View style={{ flexDirection: "column", marginLeft: 10 }}>
+        <View style={{ flexDirection: "column", marginLeft: 10, marginRight: 100 }}>
           <Text>{name}</Text>
           <Text style={styles.subtitle}>{location}</Text>
+          <Text style={styles.subtitle}>Skills: {skills.join(', ')}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -106,6 +107,7 @@ class MatchesScreen extends React.Component {
               name={item.name}
               photo={item.photos[0]}
               location={item.location}
+              skills={item.skills}
             />
           )}
           keyExtractor={match => match.uid.toString()}
@@ -145,6 +147,8 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     color: "#909090",
+    flex: 1,
+    flexWrap: 'wrap'
   },
   image: {
     height: 100,
