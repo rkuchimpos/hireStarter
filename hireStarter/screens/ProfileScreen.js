@@ -1,5 +1,5 @@
 import React from "react";
-import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Image, StyleSheet, Text, TextInput, View } from "react-native";
 import UserProfile from '../models/UserProfile'
 
 const { width } = Dimensions.get("window");
@@ -19,16 +19,26 @@ var myUserProfile = new UserProfile(
     "Machine Learning",
     "Distributed Computing",
     "Computer Vision"
-  ],
-  description="Yo, my name is Bob and I am looking for full-time work as a software engineer. Outside of work, I enjoy swinging across trees and skateboarding with my friends."
+  ]
 );
 
 class ProfileScreen extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {AboutMeText: myUserProfile.description};
+  }
+  
   static navigationOptions = ({ navigation }) => {
     return {
       title: "Edit Profile"
     };
   };
+
+  changeAboutMeText(value) {
+    this.setState({AboutMeText: value});
+    myUserProfile.description = value;
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -38,7 +48,13 @@ class ProfileScreen extends React.Component {
         </View>
         <Text style={styles.categoryHeader}>About Me</Text>
         <View style={{backgroundColor: "#fff"}}>
-          <Text style={{margin: 10}}>{myUserProfile.description}</Text>
+          <TextInput
+            style={styles.TextInputField}
+            multiline
+            placeholder="Tell us about yourself!"
+            value={this.state.AboutMeText}
+            onChangeText={(value) => this.changeAboutMeText(value)}
+          />
         </View>
       </View>
     );
@@ -58,6 +74,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "#414141",
     margin: 10,
+  },
+  TextInputField: {
+    marginHorizontal: 15,
+    marginVertical: 10
   }
 });
 
