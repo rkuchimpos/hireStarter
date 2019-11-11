@@ -5,7 +5,7 @@ import Skill from "./Skill";
 
 const { width } = Dimensions.get('window');
 
-class Card extends React.Component {
+class ProfileCard extends React.Component {
   render() {
     return (
       <View style={styles.cardWrapper}>
@@ -91,4 +91,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Card;
+export default ProfileCard;

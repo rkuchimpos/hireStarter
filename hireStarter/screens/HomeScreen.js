@@ -8,7 +8,7 @@ import {
   View
 } from "react-native";
 import Icon from "react-native-vector-icons/SimpleLineIcons";
-import Card from "../components/Card";
+import ProfileCard from "../components/ProfileCard";
 
 class HomeScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -30,7 +30,7 @@ class HomeScreen extends React.Component {
     // TODO: Display stack of cards instead of a single, hard-coded one
     return (
       <View style={styles.container}>
-        <Card
+        <ProfileCard
           photos={[
             "https://i.imgur.com/cMFc42W.png",
             "https://i.imgur.com/6B55OIA.png"
