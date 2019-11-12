@@ -21,7 +21,7 @@ class LoginScreen extends React.Component {
   render() {
     const {navigate} = this.props.navigation;
     return (
-      <ImageBackground source={{uri: 'https://cdn.dribbble.com/users/2731446/screenshots/5562999/avocado.gif'}} style={styles.gif}>
+      <ImageBackground source={{uri: 'https://i.pinimg.com/originals/d3/70/e5/d370e515ecba80b8cc994e849fd0c44d.gif'}} style={styles.gif}>
 
       <Modal animationType="slide" transparent={true} visible={this.state.modalVisible}
         onRequestClose={() => {
@@ -77,7 +77,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 20,
     marginTop: 50,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   facebookButton: {
     backgroundColor: '#3b5998',
@@ -85,13 +86,14 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 20,
     marginTop: 50,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   text: {
     color: '#ffffff'
   },
   smallText: {
-    color: "#000000",
+    color: "#ffffff",
     fontSize: 10,
     alignSelf: 'center'
   },
