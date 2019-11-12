@@ -1,6 +1,6 @@
 import React from "react";
 import { LinearGradient } from 'expo-linear-gradient';
-import { StyleSheet, Text, View, Button, TouchableOpacity, Modal, Alert, Image } from "react-native";
+import { StyleSheet, Text, View, Button, TouchableOpacity, Modal, Alert, Image, ImageBackground } from "react-native";
 
 class LoginScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -21,14 +21,7 @@ class LoginScreen extends React.Component {
   render() {
     const {navigate} = this.props.navigation;
     return (
-      <LinearGradient
-          colors={["#8E2DE2", "#4A00E0"]}
-          style={{
-            flex: 1,
-            paddingRight: 10,
-            paddingLeft: 10,
-          }}
-        >
+      <ImageBackground source={{uri: 'https://cdn.dribbble.com/users/2731446/screenshots/5562999/avocado.gif'}} style={styles.gif}>
 
       <Modal animationType="slide" transparent={true} visible={this.state.modalVisible}
         onRequestClose={() => {
@@ -55,11 +48,16 @@ class LoginScreen extends React.Component {
       </TouchableOpacity>
       <Text style={styles.smallText}> Login using your Google account or Facebook. </Text>
 
-      </LinearGradient>);
+      </ImageBackground>);
   }
 }
 
 const styles = StyleSheet.create({
+  gif: {
+    flex: 1,
+    alignSelf: 'stretch',
+    padding: 50
+  },
   button: {
     backgroundColor: '#4293f5',
     alignItems: 'center',
@@ -84,7 +82,7 @@ const styles = StyleSheet.create({
     color: '#ffffff'
   },
   smallText: {
-    color: "#ffffff",
+    color: "#000000",
     fontSize: 10,
     alignSelf: 'center'
   },
@@ -92,8 +90,8 @@ const styles = StyleSheet.create({
     height: 200,
     width: 200,
     alignSelf: 'center',
-    marginTop: 75,
-    marginBottom: 300
+    marginTop: 25,
+    marginBottom: 325
   },
   popup: {
     width: 300,
