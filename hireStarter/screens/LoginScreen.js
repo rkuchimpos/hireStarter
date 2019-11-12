@@ -31,11 +31,18 @@ class LoginScreen extends React.Component {
           <TouchableOpacity style={styles.googleButton} onPress={() => {
             this.setModalVisible(false);
             navigate('Home');}}>
+
+            <Image source={require('../assets/google_logo.png')} style={styles.smallIcon}/>
+
             <Text style={styles.text}> Google </Text>
           </TouchableOpacity>
+
           <TouchableOpacity style={styles.facebookButton} onPress={() => {
             this.setModalVisible(false);
             navigate('Home');}}>
+
+            <Image source={require('../assets/facebook_logo.jpg')} style={styles.smallIcon}/>
+
             <Text style={styles.text}> Facebook </Text>
           </TouchableOpacity>
         </View>
@@ -66,17 +73,19 @@ const styles = StyleSheet.create({
   },
   googleButton: {
     backgroundColor: '#DB4437',
-    alignItems: 'center',
+    flexDirection: 'row',
     padding: 10,
     borderRadius: 20,
-    marginTop: 50
+    marginTop: 50,
+    justifyContent: 'center'
   },
   facebookButton: {
     backgroundColor: '#3b5998',
-    alignItems: 'center',
+    flexDirection: 'row',
     padding: 10,
     borderRadius: 20,
-    marginTop: 50
+    marginTop: 50,
+    justifyContent: 'center'
   },
   text: {
     color: '#ffffff'
@@ -92,6 +101,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 25,
     marginBottom: 325
+  },
+  smallIcon: {
+    height: 20,
+    width: 20
   },
   popup: {
     width: 300,
