@@ -35,7 +35,7 @@ var myUserProfile = new UserProfile(
     "Yo, my name is Bob and I am looking for full-time work as a software engineer. Outside of work, I enjoy swinging across trees and skateboarding with my friends.")
 );
 
-class FullProfileScreen extends React.Component {
+class ViewProfileScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: myUserProfile.name
@@ -132,4 +132,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default FullProfileScreen;
+export default ViewProfileScreen;

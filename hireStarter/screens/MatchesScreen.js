@@ -11,7 +11,7 @@ import {
 
 function Item({ uid, name, photo, location, skills, navigate }) {
   return (
-    <TouchableOpacity onPress={() => navigate('FullProfile', { uid: uid })}>
+    <TouchableOpacity onPress={() => navigate('ViewProfile', { uid: uid })}>
       <View style={styles.listEntry}>
         <Image style={styles.image} source={{ uri: photo }} />
         <View style={{ flexDirection: "column", marginLeft: 10, marginRight: 100 }}>
