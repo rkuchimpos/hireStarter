@@ -1,6 +1,7 @@
 import React from "react";
-import { Dimensions, Image, StyleSheet, Text, TextInput, View } from "react-native";
-import UserProfile from '../models/UserProfile'
+import { Dimensions, Image, StyleSheet, Text, TextInput, View, TouchableOpacity } from "react-native";
+import UserProfile from '../models/UserProfile';
+import * as ImagePicker from 'expo-image-picker';
 
 const { width } = Dimensions.get("window");
 
@@ -9,8 +10,8 @@ var myUserProfile = new UserProfile(
   name="Joe Bruin",
   uid=1,
   photos=[
-    "https://i.imgur.com/cMFc42W.png",
-    "https://i.imgur.com/6B55OIA.png"
+    "https://img.pngio.com/free-png-plus-sign-transparent-plus-signpng-images-pluspng-plus-sign-transparent-background-512_512.png",
+    "https://img.pngio.com/free-png-plus-sign-transparent-plus-signpng-images-pluspng-plus-sign-transparent-background-512_512.png"
   ],
   location="University of California, Los Angeles",
   skills=[
@@ -25,7 +26,11 @@ var myUserProfile = new UserProfile(
 class ProfileScreen extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {AboutMeText: myUserProfile.description};
+    this.state = {
+      AboutMeText: myUserProfile.description,
+      image1: "https://img.pngio.com/free-png-plus-sign-transparent-plus-signpng-images-pluspng-plus-sign-transparent-background-512_512.png",
+      image2: "https://img.pngio.com/free-png-plus-sign-transparent-plus-signpng-images-pluspng-plus-sign-transparent-background-512_512.png"
+    };
   }
   
   static navigationOptions = ({ navigation }) => {
@@ -39,12 +44,40 @@ class ProfileScreen extends React.Component {
     myUserProfile.description = value;
   }
 
+  async pickImage(pic_num) {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1
+    });
+
+    if (!result.cancelled) {
+      if (pic_num == 1) {
+        this.setState({image1: result.uri});
+      } else if (pic_num == 2) {
+        this.setState({image2: result.uri});
+      }
+    }
+  };
+
   render() {
+    let { image1, image2 } = this.state;
+
     return (
       <View style={styles.container}>
         <View style={{flexDirection: "row"}}>
-          <Image style={{flex: 1, height: width / 2, width: width / 2}} source={{uri: myUserProfile.photos[0]}}/>
-          <Image style={{flex: 1, height: width / 2, width: width / 2}} source={{uri: myUserProfile.photos[1]}}/>
+          <TouchableOpacity style={{flex: 1, height: width / 2, width: width / 2}} onPress={() => {
+            this.pickImage(1);}}>
+            {image1 &&
+            <Image source={{ uri: image1 }} style={{height: width / 2, width: width / 2}}/>}
+          </TouchableOpacity>
+
+          <TouchableOpacity style={{height: width / 2, width: width / 2}} onPress={() => {
+            this.pickImage(2);}}>
+            {image2 &&
+            <Image source={{ uri: image2 }} style={{flex: 1, height: width / 2, width: width / 2}}/>}
+          </TouchableOpacity>
         </View>
         <Text style={styles.categoryHeader}>About Me</Text>
         <View style={{backgroundColor: "#fff"}}>
