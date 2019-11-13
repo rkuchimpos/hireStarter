@@ -21,7 +21,7 @@ class LoginScreen extends React.Component {
   render() {
     const {navigate} = this.props.navigation;
     return (
-      <ImageBackground source={{uri: 'https://i.pinimg.com/originals/d3/70/e5/d370e515ecba80b8cc994e849fd0c44d.gif'}} style={styles.gif}>
+      <ImageBackground source={require('../assets/employee.gif')} style={styles.gif}>
 
       <Modal animationType="slide" transparent={true} visible={this.state.modalVisible}
         onRequestClose={() => {
