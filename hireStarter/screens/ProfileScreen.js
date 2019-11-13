@@ -32,7 +32,7 @@ class ProfileScreen extends React.Component {
       image2: "https://img.pngio.com/free-png-plus-sign-transparent-plus-signpng-images-pluspng-plus-sign-transparent-background-512_512.png"
     };
   }
-  
+
   static navigationOptions = ({ navigation }) => {
     return {
       title: "Edit Profile"

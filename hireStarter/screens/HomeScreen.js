@@ -2,12 +2,14 @@ import React from "react";
 import {
   Button,
   Image,
+  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
   View
 } from "react-native";
-import Icon from "react-native-vector-icons/SimpleLineIcons";
+import SimpleLineIcon from "react-native-vector-icons/SimpleLineIcons";
+import Ionicon from "react-native-vector-icons/Ionicons";
 import ProfileCard from "../components/ProfileCard";
 import CardStack, { Card } from "react-native-card-stack-swiper";
 
@@ -78,13 +80,13 @@ class HomeScreen extends React.Component {
             style={styles.headerButton}
             onPress={() => navigation.navigate("Profile")}
           >
-            <Icon name="user" color="#fff" size={25} />
+            <SimpleLineIcon name="user" color="#fff" size={25} />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.headerButton}
             onPress={() => navigation.navigate("Matches")}
           >
-            <Icon name="people" color="#fff" size={25} />
+            <SimpleLineIcon name="people" color="#fff" size={25} />
           </TouchableOpacity>
         </View>
       )
@@ -94,6 +96,7 @@ class HomeScreen extends React.Component {
     // TODO: Display stack of cards instead of a single, hard-coded one
     return (
       <View style={styles.container}>
+      <View>
         <CardStack
           verticalSwipe={false}
           renderNoMoreCards={() => (
@@ -117,6 +120,38 @@ class HomeScreen extends React.Component {
             </Card>
           ))}
         </CardStack>
+        </View>
+        <View style={styles.controls}>
+          <TouchableOpacity
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              width: 75,
+              height: 75,
+              backgroundColor: "#fa4b1d",
+              borderRadius: 50,
+              elevation: 10,
+            }}
+            onPress={() =>this.swiper.swipeLeft()}
+          >
+            <Ionicon name="ios-close" size={45} color="#fff" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              marginLeft: 30,
+              alignItems: "center",
+              justifyContent: "center",
+              width: 75,
+              height: 75,
+              backgroundColor: "#4dff8f",
+              borderRadius: 50,
+              elevation: 10,
+            }}
+            onPress={() =>this.swiper.swipeRight()}
+          >
+            <Ionicon name="ios-checkmark" size={45} color="#fff" />
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -137,8 +172,28 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     flex: 1,
+    flexDirection: "column",
     backgroundColor: "#e5e5e5",
-  }
+    justifyContent: "space-between"
+  },
+  controls: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    ...Platform.select({
+      ios: {
+        zIndex: 10,
+      },
+      android: {
+        elevation: 10,
+      },
+    }),
+    bottom: 0,
+    left: 0,
+    right: 0,
+    marginBottom: 10,
+  },
 });
 
 export default HomeScreen;
