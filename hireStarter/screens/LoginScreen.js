@@ -10,8 +10,7 @@ class LoginScreen extends React.Component {
   };
 
   state = {
-    modalVisible: false,
-    popupsActive: false
+    modalVisible: false
   };
 
   setModalVisible(visible) {
