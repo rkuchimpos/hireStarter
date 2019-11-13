@@ -19,7 +19,7 @@ var myUserProfile = new UserProfile(
   ]
 );
 
-class ProfileScreen extends React.Component {
+class EditProfileScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -111,4 +111,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ProfileScreen;
+export default EditProfileScreen;

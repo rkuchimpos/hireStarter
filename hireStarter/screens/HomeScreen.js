@@ -79,7 +79,7 @@ class HomeScreen extends React.Component {
         <View style={styles.headerRight}>
           <TouchableOpacity
             style={styles.headerButton}
-            onPress={() => navigation.navigate("Profile")}
+            onPress={() => navigation.navigate("EditProfile")}
           >
             <SimpleLineIcon name="user" color="#fff" size={25} />
           </TouchableOpacity>

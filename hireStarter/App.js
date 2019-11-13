@@ -4,7 +4,7 @@ import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { LinearGradient } from "expo-linear-gradient";
 import HomeScreen from "./screens/HomeScreen";
-import ProfileScreen from "./screens/ProfileScreen";
+import EditProfileScreen from "./screens/EditProfileScreen";
 import MatchesScreen from "./screens/MatchesScreen";
 import LoginScreen from "./screens/LoginScreen";
 import ViewProfileScreen from "./screens/ViewProfileScreen";
@@ -14,8 +14,8 @@ const MainNavigator = createStackNavigator(
     Home: {
       screen: HomeScreen
     },
-    Profile: {
-      screen: ProfileScreen
+    EditProfile: {
+      screen: EditProfileScreen
     },
     Matches: {
       screen: MatchesScreen
