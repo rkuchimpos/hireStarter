@@ -41,7 +41,7 @@ class LoginScreen extends React.Component {
             this.setModalVisible(false);
             navigate('Home');}}>
 
-            <Image source={require('../assets/facebook_logo.jpg')} style={styles.smallIcon}/>
+            <Image source={require('../assets/facebook_logo.png')} style={styles.smallIcon}/>
 
             <Text style={styles.text}> Facebook </Text>
           </TouchableOpacity>
