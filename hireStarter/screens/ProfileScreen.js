@@ -9,10 +9,6 @@ const { width } = Dimensions.get("window");
 var myUserProfile = new UserProfile(
   name="Joe Bruin",
   uid=1,
-  photos=[
-    "https://img.pngio.com/free-png-plus-sign-transparent-plus-signpng-images-pluspng-plus-sign-transparent-background-512_512.png",
-    "https://img.pngio.com/free-png-plus-sign-transparent-plus-signpng-images-pluspng-plus-sign-transparent-background-512_512.png"
-  ],
   location="University of California, Los Angeles",
   skills=[
     "C++",
@@ -28,8 +24,8 @@ class ProfileScreen extends React.Component {
     super(props)
     this.state = {
       AboutMeText: myUserProfile.description,
-      image1: "https://img.pngio.com/free-png-plus-sign-transparent-plus-signpng-images-pluspng-plus-sign-transparent-background-512_512.png",
-      image2: "https://img.pngio.com/free-png-plus-sign-transparent-plus-signpng-images-pluspng-plus-sign-transparent-background-512_512.png"
+      image1: "https://retohercules.com/images/transparent-to-the-user-8.png",
+      image2: "https://retohercules.com/images/transparent-to-the-user-8.png"
     };
   }
 
@@ -67,16 +63,16 @@ class ProfileScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View style={{flexDirection: "row"}}>
-          <TouchableOpacity style={{flex: 1, height: width / 2, width: width / 2}} onPress={() => {
+          <TouchableOpacity style={{flex: 1, height: width / 2, width: width / 2, borderWidth: 1, borderColor: '#000000'}} onPress={() => {
             this.pickImage(1);}}>
             {image1 &&
-            <Image source={{ uri: image1 }} style={{height: width / 2, width: width / 2}}/>}
+            <Image source={{ uri: image1 }} style={styles.profilePhoto}/>}
           </TouchableOpacity>
 
-          <TouchableOpacity style={{height: width / 2, width: width / 2}} onPress={() => {
+          <TouchableOpacity style={{height: width / 2, width: width / 2, borderWidth: 1, borderColor: '#000000'}} onPress={() => {
             this.pickImage(2);}}>
             {image2 &&
-            <Image source={{ uri: image2 }} style={{flex: 1, height: width / 2, width: width / 2}}/>}
+            <Image source={{ uri: image2 }} style={styles.profilePhoto}/>}
           </TouchableOpacity>
         </View>
         <Text style={styles.categoryHeader}>About Me</Text>
@@ -101,7 +97,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#e5e5e5"
   },
   profilePhoto: {
-    width: width
+    width: (width / 2) - 2,
+    height: (width / 2) - 2
   },
   categoryHeader: {
     fontSize: 20,
