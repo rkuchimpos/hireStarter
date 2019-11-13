@@ -9,9 +9,9 @@ import {
   View
 } from "react-native";
 
-function Item({ name, photo, location, skills }) {
+function Item({ uid, name, photo, location, skills, navigate }) {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => navigate('FullProfile', { uid: uid })}>
       <View style={styles.listEntry}>
         <Image style={styles.image} source={{ uri: photo }} />
         <View style={{ flexDirection: "column", marginLeft: 10, marginRight: 100 }}>
@@ -104,6 +104,8 @@ class MatchesScreen extends React.Component {
           data={mock_connections}
           renderItem={({ item }) => (
             <Item
+              navigate={this.props.navigation.navigate}
+              uid={item.uid}
               name={item.name}
               photo={item.photos[0]}
               location={item.location}

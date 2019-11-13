@@ -70,6 +70,7 @@ const mockProfiles = [
   }
 ];
 
+// TODO: Remove back button on home page
 class HomeScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {

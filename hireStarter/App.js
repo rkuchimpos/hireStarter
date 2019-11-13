@@ -7,6 +7,7 @@ import HomeScreen from "./screens/HomeScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import MatchesScreen from "./screens/MatchesScreen";
 import LoginScreen from "./screens/LoginScreen";
+import FullProfileScreen from "./screens/FullProfileScreen";
 
 const MainNavigator = createStackNavigator(
   {
@@ -21,6 +22,9 @@ const MainNavigator = createStackNavigator(
     },
     Login: {
       screen: LoginScreen
+    },
+    FullProfile: {
+      screen: FullProfileScreen,
     }
   },
   {
