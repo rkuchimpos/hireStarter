@@ -27,7 +27,7 @@ class ProfileScreen extends React.Component {
     super(props)
     this.state = {AboutMeText: myUserProfile.description};
   }
-  
+
   static navigationOptions = ({ navigation }) => {
     return {
       title: "Edit Profile"
