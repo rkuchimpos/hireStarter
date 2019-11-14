@@ -8,17 +8,21 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-import BackendAPI from '../api/BackendAPI';
+import BackendAPI from "../api/BackendAPI";
 
 function Item({ uid, name, photo, location, skills, navigate }) {
   return (
-    <TouchableOpacity onPress={() => navigate('ViewProfile', { uid: uid })}>
+    <TouchableOpacity
+      onPress={() => navigate("ViewProfile", { uid: uid, name: name })}
+    >
       <View style={styles.listEntry}>
         <Image style={styles.image} source={{ uri: photo }} />
-        <View style={{ flexDirection: "column", marginLeft: 10, marginRight: 100 }}>
+        <View
+          style={{ flexDirection: "column", marginLeft: 10, marginRight: 100 }}
+        >
           <Text>{name}</Text>
           <Text style={styles.subtitle}>{location}</Text>
-          <Text style={styles.subtitle}>Skills: {skills.join(', ')}</Text>
+          <Text style={styles.subtitle}>Skills: {skills.join(", ")}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -87,12 +91,12 @@ const styles = StyleSheet.create({
   subtitle: {
     color: "#909090",
     flex: 1,
-    flexWrap: 'wrap'
+    flexWrap: "wrap"
   },
   image: {
     height: 100,
     width: 100
-  },
+  }
 });
 
 export default MatchesScreen;

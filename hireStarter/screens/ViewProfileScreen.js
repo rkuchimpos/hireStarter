@@ -13,29 +13,31 @@ import SwiperFlatList from "react-native-swiper-flatlist";
 import UserProfile from "../models/UserProfile";
 import Skill from "../components/Skill";
 import BackendAPI from '../api/BackendAPI';
+import BackendLogic from '../api/BackendLogic';
 
 const { width } = Dimensions.get("window");
-
-// Temporary, should be fetched from server/cache
-var myUserProfile = BackendAPI.getMyCard();
 
 class ViewProfileScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: myUserProfile.name
+      title: navigation.getParam('name'),
     };
   };
 
   render() {
     // TODO: Use UID to look up profile in DB; using mock profile in the meantime
+    // TODO: Move fetching of profile out of render()
     const { uid } = this.props.navigation.state.params;
+    const userProfile = BackendLogic.fetchCardByUID(uid);
+    console.log("USER PROF:")
+    console.log(userProfile);
     return (
       <View style={styles.container}>
         <ScrollView>
           <View>
             <SwiperFlatList
               index={0}
-              data={myUserProfile.photos}
+              data={userProfile.photos}
               renderItem={({ item }) => (
                 <Image
                   resizeMode="cover"
@@ -48,17 +50,17 @@ class ViewProfileScreen extends React.Component {
           </View>
           <View style={{marginTop: 10}}>
             <View style={styles.section}>
-              <Text style={styles.sectionHeader}>{myUserProfile.name}</Text>
-              <Text style={styles.subtext}>{myUserProfile.location}</Text>
+              <Text style={styles.sectionHeader}>{userProfile.name}</Text>
+              <Text style={styles.subtext}>{userProfile.location}</Text>
             </View>
             <View style={styles.section}>
               <Text style={styles.sectionHeader}>About</Text>
-              <Text style={styles.subtext}>{myUserProfile.description}</Text>
+              <Text style={styles.subtext}>{userProfile.description}</Text>
             </View>
             <View style={styles.section}>
               <Text style={styles.sectionHeader}>Skills</Text>
               <View style={styles.skillList}>
-                {myUserProfile.skills.map(skill => (
+                {userProfile.skills.map(skill => (
                   <View style={{ marginRight: 5, marginBottom: 5 }} key={skill}>
                     <Skill skill={skill} />
                   </View>

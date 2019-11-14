@@ -33,13 +33,17 @@ class BackendLogic {
         }
         return userProfiles;
     }
-    
+
     static fetchCardByUID(uid) {
         // TODO: fill uidUserProfile with backend call
         var uidUserProfile = new UserProfile(
             name="Joe Bruin",
             uid=1,
             bIsRecruiter=false,
+            photos=[
+              "https://i.imgur.com/cMFc42W.png",
+              "https://i.imgur.com/6B55OIA.png"
+            ],
             location="University of California, Los Angeles",
             skills=[
               "C++",
@@ -48,11 +52,11 @@ class BackendLogic {
               "Distributed Computing",
               "Computer Vision"
             ],
-            description="Yo, my name is Bob and I am looking for full-time work as a software engineer. Outside of work, I enjoy swinging across trees and skateboarding with my friends."
+            (description="Yo, my name is Bob and I am looking for full-time work as a software engineer. Outside of work, I enjoy swinging across trees and skateboarding with my friends.")
         );
         return uidUserProfile;
     }
-    
+
     static getMatchBucketByUID(uid) {
         // TODO: get match bucket list from firebase
         var matchedUIDs = [];
