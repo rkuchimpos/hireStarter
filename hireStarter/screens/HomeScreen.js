@@ -10,65 +10,37 @@ import {
 } from "react-native";
 import SimpleLineIcon from "react-native-vector-icons/SimpleLineIcons";
 import Ionicon from "react-native-vector-icons/Ionicons";
-import ProfileCard from "../components/ProfileCard";
 import CardStack, { Card } from "react-native-card-stack-swiper";
+import ProfileCard from "../components/ProfileCard";
+import UserProfile from '../models/UserProfile';
 
-const mockProfiles = [
-  {
-    name: "Joe Bruin",
-    uid: 1,
-    photos: [
-      "https://i.imgur.com/cMFc42W.png",
-      "https://i.imgur.com/6B55OIA.png"
-    ],
-    location: "University of California, Los Angeles",
-    skills: [
-      "C++",
-      "Python",
-      "Machine Learning",
-      "Distributed Computing",
-      "Computer Vision"
-    ],
-    description:
-      "Yo, my name is Bob and I am looking for full-time work as a software engineer. Outside of work, I enjoy swinging across trees and skateboarding with my friends."
-  },
-  {
-    name: "Joe Bruin",
-    uid: 2,
-    photos: [
-      "https://i.imgur.com/cMFc42W.png",
-      "https://i.imgur.com/6B55OIA.png"
-    ],
-    location: "University of California, Los Angeles",
-    skills: [
-      "C++",
-      "Python",
-      "Machine Learning",
-      "Distributed Computing",
-      "Computer Vision"
-    ],
-    description:
-      "Yo, my name is Bob and I am looking for full-time work as a software engineer. Outside of work, I enjoy swinging across trees and skateboarding with my friends."
-  },
-  {
-    name: "Joe Bruin",
-    uid: 3,
-    photos: [
-      "https://i.imgur.com/cMFc42W.png",
-      "https://i.imgur.com/6B55OIA.png"
-    ],
-    location: "University of California, Los Angeles",
-    skills: [
-      "C++",
-      "Python",
-      "Machine Learning",
-      "Distributed Computing",
-      "Computer Vision"
-    ],
-    description:
-      "Yo, my name is Bob and I am looking for full-time work as a software engineer. Outside of work, I enjoy swinging across trees and skateboarding with my friends."
-  }
-];
+// get the data for this list from backend
+var userProfiles = [];
+for (i = 0; i < 4; ++i)
+{
+  userProfiles.push(
+    new UserProfile(
+      (name="Joe Bruin"),
+      (uid=1),
+      (photos=[
+        "https://i.imgur.com/cMFc42W.png",
+        "https://i.imgur.com/6B55OIA.png"
+      ]),
+      (location="University of California, Los Angeles"),
+      (skills=[
+        "C++",
+        "Python",
+        "Machine Learning",
+        "Distributed Computing",
+        "Computer Vision"
+      ]),
+      (description=
+        "Yo, my name is Bob and I am looking for full-time work as a software engineer. Outside of work, I enjoy swinging across trees and skateboarding with my friends."
+      )
+    )
+  );
+}
+
 
 // TODO: Remove back button on home page
 class HomeScreen extends React.Component {
@@ -109,7 +81,7 @@ class HomeScreen extends React.Component {
             this.swiper = swiper;
           }}
         >
-          {mockProfiles.map(item => (
+          {userProfiles.map(item => (
             <Card key={item.uid}>
               <ProfileCard
                 name={item.name}
