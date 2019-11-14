@@ -46,9 +46,14 @@ class LoginScreen extends React.Component {
       });
       if (type === 'success') {
         // Get the user's name using Facebook's Graph API
+        this.setState({
+          signedIn: true
+        });
         const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
         console.log("Success");
+        console.log(await response.json());
       } else {
+        console.log("Cancelled");
         // type === 'cancel'
       }
     } catch ({ message }) {
