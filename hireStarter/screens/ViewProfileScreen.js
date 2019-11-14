@@ -12,28 +12,12 @@ import {
 import SwiperFlatList from "react-native-swiper-flatlist";
 import UserProfile from "../models/UserProfile";
 import Skill from "../components/Skill";
+import BackendAPI from '../api/BackendAPI';
 
 const { width } = Dimensions.get("window");
 
 // Temporary, should be fetched from server/cache
-var myUserProfile = new UserProfile(
-  (name = "Joe Bruin"),
-  (uid = 1),
-  (photos = [
-    "https://i.imgur.com/cMFc42W.png",
-    "https://i.imgur.com/6B55OIA.png"
-  ]),
-  (location = "University of California, Los Angeles"),
-  (skills = [
-    "C++",
-    "Python",
-    "Machine Learning",
-    "Distributed Computing",
-    "Computer Vision"
-  ]),
-  (description =
-    "Yo, my name is Bob and I am looking for full-time work as a software engineer. Outside of work, I enjoy swinging across trees and skateboarding with my friends.")
-);
+var myUserProfile = BackendAPI.getMyCard();
 
 class ViewProfileScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {

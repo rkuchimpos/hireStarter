@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
+import BackendAPI from '../api/BackendAPI';
 
 function Item({ uid, name, photo, location, skills, navigate }) {
   return (
@@ -32,76 +33,12 @@ class MatchesScreen extends React.Component {
   };
 
   render() {
-    const mock_connections = [
-      {
-        name: "Joe Bruin",
-        uid: 1,
-        photos: [
-          "https://i.imgur.com/cMFc42W.png",
-          "https://i.imgur.com/6B55OIA.png"
-        ],
-        location: "University of California, Los Angeles",
-        skills: [
-          "C++",
-          "Python",
-          "Machine Learning",
-          "Distributed Computing",
-          "Computer Vision"
-        ]
-      },
-      {
-        name: "Joe Bruin",
-        uid: 2,
-        photos: [
-          "https://i.imgur.com/cMFc42W.png",
-          "https://i.imgur.com/6B55OIA.png"
-        ],
-        location: "University of California, Los Angeles",
-        skills: [
-          "C++",
-          "Python",
-          "Machine Learning",
-          "Distributed Computing",
-          "Computer Vision"
-        ]
-      },
-      {
-        name: "Joe Bruin",
-        uid: 3,
-        photos: [
-          "https://i.imgur.com/cMFc42W.png",
-          "https://i.imgur.com/6B55OIA.png"
-        ],
-        location: "University of California, Los Angeles",
-        skills: [
-          "C++",
-          "Python",
-          "Machine Learning",
-          "Distributed Computing",
-          "Computer Vision"
-        ]
-      },
-      {
-        name: "Joe Bruin",
-        uid: 4,
-        photos: [
-          "https://i.imgur.com/cMFc42W.png",
-          "https://i.imgur.com/6B55OIA.png"
-        ],
-        location: "University of California, Los Angeles",
-        skills: [
-          "C++",
-          "Python",
-          "Machine Learning",
-          "Distributed Computing",
-          "Computer Vision"
-        ]
-      }
-    ];
+    var matchedCards = BackendAPI.getMatchedCards();
+    console.log(matchedCards[0]);
     return (
       <View style={styles.container}>
         <FlatList
-          data={mock_connections}
+          data={matchedCards}
           renderItem={({ item }) => (
             <Item
               navigate={this.props.navigation.navigate}

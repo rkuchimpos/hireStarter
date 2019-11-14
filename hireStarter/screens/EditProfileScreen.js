@@ -1,23 +1,13 @@
 import React from "react";
 import { Dimensions, Image, StyleSheet, Text, TextInput, View, TouchableOpacity } from "react-native";
-import UserProfile from '../models/UserProfile';
 import * as ImagePicker from 'expo-image-picker';
+import UserProfile from '../models/UserProfile';
+import BackendAPI from '../api/BackendAPI';
 
 const { width } = Dimensions.get("window");
 
 // Temporary, should be fetched from server/cache
-var myUserProfile = new UserProfile(
-  name="Joe Bruin",
-  uid=1,
-  location="University of California, Los Angeles",
-  skills=[
-    "C++",
-    "Python",
-    "Machine Learning",
-    "Distributed Computing",
-    "Computer Vision"
-  ]
-);
+var myUserProfile = BackendAPI.getMyCard();
 
 class EditProfileScreen extends React.Component {
   constructor(props) {
