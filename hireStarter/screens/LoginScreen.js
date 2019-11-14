@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import * as Google from 'expo-google-app-auth';
 import * as Facebook from 'expo-facebook';
+import { withFirebaseHOC } from '../config/Firebase'
 
 const ANDROID_CLIENT_ID = "1039741042714-v9nc8aj7ufbrrncknr0eodml7mdagat8.apps.googleusercontent.com";
 
@@ -33,6 +34,35 @@ class LoginScreen extends React.Component {
     this.setState({ modalVisible: visible });
   }
 
+  facebookLogin = async () => {
+    try {
+      const response = await this.props.firebase.loginWithFacebook()
+
+      if (response.user) {
+        this.props.navigation.navigate('Home')
+      }
+    } catch (error) {
+      actions.setFieldError('general', error.message)
+    } finally {
+      actions.setSubmitting(false)
+    }
+  }
+
+  googleLogin = async () => {
+    try {
+      console.log('working')
+      const response = await this.props.firebase.loginWithGoogle()
+
+      if (response.user) {
+        this.props.navigation.navigate('Home')
+      }
+    } catch (error) {
+      //actions.setFieldError('general', error.message)
+    } finally {
+      //actions.setSubmitting(false)
+    }
+  }
+
   login = async () => {
     try {
       const {
@@ -50,6 +80,10 @@ class LoginScreen extends React.Component {
           signedIn: true
         });
         const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
+        await this.props.firebase.setPersistence() // Set persistent auth state
+        const credential = this.props.firebase.getFacebookCredential(token)
+        const facebookProfileData = await this.props.firebase.loginWithFacebook(credential)
+        this.props.navigation.navigate('Home')
         console.log("Success");
         console.log(await response.json());
       } else {
@@ -103,8 +137,9 @@ class LoginScreen extends React.Component {
               style={styles.googleButton}
               onPress={() => {
                 this.setModalVisible(false);
-                this.signIn();
-                navigate("Home");
+                // this.signIn();
+                // navigate("Home");
+                this.googleLogin()
               }}
             >
               <Image
@@ -120,7 +155,7 @@ class LoginScreen extends React.Component {
               onPress={() => {
                 this.setModalVisible(false);
                 this.login();
-                navigate("Home");
+                //navigate("Home");
               }}
             >
               <Image
@@ -209,4 +244,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default LoginScreen;
+export default withFirebaseHOC(LoginScreen);
