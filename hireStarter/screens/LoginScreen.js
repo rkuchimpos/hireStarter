@@ -12,6 +12,7 @@ import {
   ImageBackground
 } from "react-native";
 import * as Google from 'expo-google-app-auth';
+import * as Facebook from 'expo-facebook';
 
 const ANDROID_CLIENT_ID = "1039741042714-v9nc8aj7ufbrrncknr0eodml7mdagat8.apps.googleusercontent.com";
 
@@ -31,6 +32,29 @@ class LoginScreen extends React.Component {
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
+
+  login = async () => {
+    try {
+      const {
+        type,
+        token,
+        expires,
+        permissions,
+        declinedPermissions,
+      } = await Facebook.logInWithReadPermissionsAsync('2420347548233306', {
+        permissions: ['public_profile'],
+      });
+      if (type === 'success') {
+        // Get the user's name using Facebook's Graph API
+        const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
+        console.log("Success");
+      } else {
+        // type === 'cancel'
+      }
+    } catch ({ message }) {
+      console.log("Failure");
+    }
+  };
 
   signIn = async () => {
     try {
@@ -90,6 +114,7 @@ class LoginScreen extends React.Component {
               style={styles.facebookButton}
               onPress={() => {
                 this.setModalVisible(false);
+                this.login();
                 navigate("Home");
               }}
             >
