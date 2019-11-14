@@ -17,12 +17,17 @@ const Firebase = {
     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
   },
   getFacebookCredential: token => {
-      console.log('broken')
     return firebase.auth.FacebookAuthProvider.credential(token)
   },
   loginWithFacebook: credential => {
     //var provider = new firebase.auth.FacebookAuthProvider()
     return firebase.auth().signInWithCredential(credential)
+  },
+  setValue: (path, value) => {
+    firebase.database().ref().child('Users').child(path).push({highscore: value})
+    // firebase.database().ref(path).push({
+    //     highscore: value
+    // })
   },
   loginWithEmail: (email, password) => {
     return firebase.auth().signInWithEmailAndPassword(email, password)

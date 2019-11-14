@@ -34,20 +34,6 @@ class LoginScreen extends React.Component {
     this.setState({ modalVisible: visible });
   }
 
-  facebookLogin = async () => {
-    try {
-      const response = await this.props.firebase.loginWithFacebook()
-
-      if (response.user) {
-        this.props.navigation.navigate('Home')
-      }
-    } catch (error) {
-      actions.setFieldError('general', error.message)
-    } finally {
-      actions.setSubmitting(false)
-    }
-  }
-
   googleLogin = async () => {
     try {
       console.log('working')
@@ -85,13 +71,17 @@ class LoginScreen extends React.Component {
         const facebookProfileData = await this.props.firebase.loginWithFacebook(credential)
         this.props.navigation.navigate('Home')
         console.log("Success");
-        console.log(await response.json());
+        console.log(facebookProfileData.user);
+        const uid = facebookProfileData.user.uid
+        const name = facebookProfileData.user.displayName
+        var userdata = {uid, name}
+        this.props.firebase.createNewUser(userdata)
       } else {
         console.log("Cancelled");
         // type === 'cancel'
       }
     } catch ({ message }) {
-      console.log("Failure");
+      console.log(message);
     }
   };
 
@@ -109,6 +99,7 @@ class LoginScreen extends React.Component {
         });
         console.log("FOO")
         console.log(result.user);
+        this.props.navigation.navigate('Home')
       } else {
         console.log("cancelled");
       }
@@ -137,9 +128,7 @@ class LoginScreen extends React.Component {
               style={styles.googleButton}
               onPress={() => {
                 this.setModalVisible(false);
-                // this.signIn();
-                // navigate("Home");
-                this.googleLogin()
+                this.signIn();
               }}
             >
               <Image
@@ -155,7 +144,6 @@ class LoginScreen extends React.Component {
               onPress={() => {
                 this.setModalVisible(false);
                 this.login();
-                //navigate("Home");
               }}
             >
               <Image
