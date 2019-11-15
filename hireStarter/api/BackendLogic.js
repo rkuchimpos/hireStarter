@@ -38,7 +38,7 @@ class BackendLogic {
         // TODO: fill uidUserProfile with backend call
         var uidUserProfile = new UserProfile(
             name="Joe Bruin",
-            uid=1,
+            uid=uid,
             bIsRecruiter=false,
             photos=[
               "https://i.imgur.com/cMFc42W.png",
