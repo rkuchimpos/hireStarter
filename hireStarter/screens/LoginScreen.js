@@ -65,22 +65,25 @@ class LoginScreen extends React.Component {
         this.setState({
           signedIn: true
         });
-        const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
         await this.props.firebase.setPersistence() // Set persistent auth state
         const credential = this.props.firebase.getFacebookCredential(token)
         const facebookProfileData = await this.props.firebase.loginWithFacebook(credential)
         this.props.navigation.navigate('Home')
-        console.log("Success");
-        console.log(facebookProfileData.user);
-        const uid = facebookProfileData.user.uid
-        const name = facebookProfileData.user.displayName
-        var userdata = {uid, name}
+        //console.log(facebookProfileData.user);
+        var userdata = {
+          uid: facebookProfileData.user.uid, 
+          name: facebookProfileData.user.displayName
+        }
         this.props.firebase.createNewUser(userdata)
+        const data = await this.props.firebase.retrieveData(userdata.uid)
+        console.log(data.data())
+        console.log("Success");
       } else {
         console.log("Cancelled");
         // type === 'cancel'
       }
     } catch ({ message }) {
+      console.log('Failure')
       console.log(message);
     }
   };
