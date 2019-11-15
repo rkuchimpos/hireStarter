@@ -1,0 +1,209 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProfileCard renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "shadowColor": "#000",
+      "shadowOffset": Object {
+        "height": 0,
+        "width": 0,
+      },
+      "shadowOpacity": 0.5,
+      "shadowRadius": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#fff",
+        "borderRadius": 10,
+        "overflow": "hidden",
+      }
+    }
+  >
+    <View>
+      <RCTScrollView
+        data={Array []}
+        disableVirtualization={false}
+        getItem={[Function]}
+        getItemCount={[Function]}
+        horizontal={true}
+        initialNumToRender={1}
+        initialScrollIndex={0}
+        keyExtractor={[Function]}
+        maxToRenderPerBatch={10}
+        numColumns={1}
+        onContentSizeChange={[Function]}
+        onEndReachedThreshold={2}
+        onLayout={[Function]}
+        onMomentumScrollEnd={[Function]}
+        onScroll={[Function]}
+        onScrollBeginDrag={[Function]}
+        onScrollEndDrag={[Function]}
+        onScrollToIndexFailed={[Function]}
+        onViewableItemsChanged={[Function]}
+        pagingEnabled={true}
+        removeClippedSubviews={false}
+        renderItem={[Function]}
+        scrollEnabled={true}
+        scrollEventThrottle={50}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+        stickyHeaderIndices={Array []}
+        updateCellsBatchingPeriod={50}
+        viewabilityConfig={
+          Object {
+            "itemVisiblePercentThreshold": 60,
+            "minimumViewTime": 200,
+          }
+        }
+        viewabilityConfigCallbackPairs={
+          Array [
+            Object {
+              "onViewableItemsChanged": [Function],
+              "viewabilityConfig": Object {
+                "itemVisiblePercentThreshold": 60,
+                "minimumViewTime": 200,
+              },
+            },
+          ]
+        }
+        windowSize={21}
+      >
+        <View />
+      </RCTScrollView>
+      <View
+        style={
+          Array [
+            Object {
+              "bottom": 0,
+              "flexDirection": "row",
+              "justifyContent": "center",
+              "marginVertical": 16.675,
+              "position": "absolute",
+              "width": "100%",
+            },
+            Object {},
+          ]
+        }
+      />
+    </View>
+    <View
+      style={
+        Object {
+          "margin": 10,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#606060",
+            "fontSize": 24,
+          }
+        }
+      >
+        Joe Bruin
+      </Text>
+      <Text
+        style={
+          Object {
+            "color": "#909090",
+            "fontSize": 14,
+          }
+        }
+      >
+        Los Angeles
+      </Text>
+      <Text
+        style={
+          Object {
+            "color": "#404040",
+            "fontSize": 14,
+            "marginTop": 20,
+          }
+        }
+      >
+        I am a software engineer
+      </Text>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "flexWrap": "wrap",
+            "justifyContent": "center",
+            "marginTop": 20,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "marginBottom": 5,
+              "marginRight": 5,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignSelf": "flex-start",
+                "backgroundColor": "#4A00E0",
+                "borderRadius": 20,
+                "padding": 8,
+                "paddingLeft": 10,
+                "paddingRight": 10,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#fff",
+                  "fontSize": 14,
+                }
+              }
+            >
+              Java
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "marginBottom": 5,
+              "marginRight": 5,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignSelf": "flex-start",
+                "backgroundColor": "#4A00E0",
+                "borderRadius": 20,
+                "padding": 8,
+                "paddingLeft": 10,
+                "paddingRight": 10,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#fff",
+                  "fontSize": 14,
+                }
+              }
+            >
+              C++
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
