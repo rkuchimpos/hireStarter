@@ -12,7 +12,7 @@ test('two mutual likes should be recognized as a match', () => {
   const user2 = 2;
   BackendLogic.addLikeMock(user1, user2);
   BackendLogic.addLikeMock(user2, user1);
-  const isMatch = Backend.checkConnectionMock(user1, user2);
+  const isMatch = BackendLogic.checkConnectionMock(user1, user2);
   expect(isMatch).toBe(true);
 });
 
@@ -21,6 +21,6 @@ test('unreciprocated match should not be recognized as a match', () => {
   const user1 = 3;
   const user2 = 4;
   BackendLogic.addLikeMock(user1, user2);
-  const isMatch = Backend.checkConnectionMock(user1, user2);
+  const isMatch = BackendLogic.checkConnectionMock(user1, user2);
   expect(isMatch).toBe(false);
 });
