@@ -7,9 +7,8 @@ import firebaseConfig from './firebaseConfig'
 firebase.initializeApp(firebaseConfig)
 
 const Firebase = {
-  // auth
+  
   loginWithGoogle: () => {
-    console.log('here')
     //var provider = new firebase.auth.GoogleAuthProvider()
     return firebase.auth().singInWithCredential('google.com')
   },
@@ -23,18 +22,12 @@ const Firebase = {
     //var provider = new firebase.auth.FacebookAuthProvider()
     return firebase.auth().signInWithCredential(credential)
   },
-  setValue: (path, value) => {
-    firebase.database().ref().child('Users').child(path).push({highscore: value})
-    // firebase.database().ref(path).push({
-    //     highscore: value
-    // })
-  },
-  loginWithEmail: (email, password) => {
-    return firebase.auth().signInWithEmailAndPassword(email, password)
-  },
-  signupWithEmail: (email, password) => {
-    return firebase.auth().createUserWithEmailAndPassword(email, password)
-  },
+//   loginWithEmail: (email, password) => {
+//     return firebase.auth().signInWithEmailAndPassword(email, password)
+//   },
+//   signupWithEmail: (email, password) => {
+//     return firebase.auth().createUserWithEmailAndPassword(email, password)
+//   },
   signOut: () => {
     return firebase.auth().signOut()
   },
@@ -51,6 +44,13 @@ const Firebase = {
       .collection('users')
       .doc(`${userData.uid}`)
       .set(userData)
+  },
+  retrieveData: uid => {
+    return firebase
+			.firestore()
+			.collection('users')
+			.doc(`${uid}`)
+			.get()
   }
 }
 
