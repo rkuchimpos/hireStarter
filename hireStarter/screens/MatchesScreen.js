@@ -37,7 +37,9 @@ class MatchesScreen extends React.Component {
   };
 
   render() {
-    var matchedCards = BackendAPI.getMatchedCards();
+    // TODO: Move fetching of matches outside of the render function
+    //var matchedCards = BackendAPI.getMatchedCards();
+    var matchedCards = BackendAPI.getMockCards(10);
     console.log(matchedCards[0]);
     return (
       <View style={styles.container}>

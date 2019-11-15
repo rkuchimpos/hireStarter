@@ -7,7 +7,8 @@ import BackendAPI from '../api/BackendAPI';
 const { width } = Dimensions.get("window");
 
 // Temporary, should be fetched from server/cache
-var myUserProfile = BackendAPI.getMyCard();
+//var myUserProfile = BackendAPI.getMyCard();
+var myUserProfile = BackendAPI.getMockProfile(0);
 
 class EditProfileScreen extends React.Component {
   constructor(props) {

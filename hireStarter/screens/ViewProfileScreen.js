@@ -28,7 +28,8 @@ class ViewProfileScreen extends React.Component {
     // TODO: Use UID to look up profile in DB; using mock profile in the meantime
     // TODO: Move fetching of profile out of render()
     const { uid } = this.props.navigation.state.params;
-    const userProfile = BackendLogic.fetchCardByUID(uid);
+    //const userProfile = BackendLogic.fetchCardByUID(uid);
+    const userProfile = BackendAPI.getMockProfile(uid);
     console.log("USER PROF:")
     console.log(userProfile);
     return (

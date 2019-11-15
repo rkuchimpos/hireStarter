@@ -16,7 +16,7 @@ import UserProfile from '../models/UserProfile';
 import BackendAPI from '../api/BackendAPI';
 
 // get the data for this list from backend
-var userProfiles = BackendAPI.getFilteredCards(20);
+var userProfiles = BackendAPI.getMockCards(20);
 
 // TODO: Remove back button on home page
 class HomeScreen extends React.Component {
