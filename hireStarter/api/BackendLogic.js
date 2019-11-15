@@ -5,6 +5,7 @@ db = firestore.collections
 
 class BackendLogic {
 
+<<<<<<< HEAD
   /*
   static fetchCards(numCards) {
       // TODO: make this actually access the backend
@@ -19,6 +20,15 @@ class BackendLogic {
             (uid=i),
             (bIsRecruiter=true),
             (photos=[
+=======
+    static fetchCardByUID(uid) {
+        // TODO: fill uidUserProfile with backend call
+        var uidUserProfile = new UserProfile(
+            name="Joe Bruin",
+            uid=uid,
+            bIsRecruiter=false,
+            photos=[
+>>>>>>> 30225170adcb333b0390b338b81d7a2fb163a09e
               "https://i.imgur.com/cMFc42W.png",
               "https://i.imgur.com/6B55OIA.png"
             ]),

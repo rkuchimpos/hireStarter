@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Skill renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignSelf": "flex-start",
+      "backgroundColor": "#4A00E0",
+      "borderRadius": 20,
+      "padding": 8,
+      "paddingLeft": 10,
+      "paddingRight": 10,
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "color": "#fff",
+        "fontSize": 14,
+      }
+    }
+  >
+    Test
+  </Text>
+</View>
+`;
