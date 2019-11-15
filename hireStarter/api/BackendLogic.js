@@ -62,6 +62,16 @@ class BackendLogic {
     return matchedUIDs;
   }
 */
+  /**
+   * Fetch all UIDs found in the user's Matches array
+   * 
+   * @param {string} uid The user's unique identifier.
+   * @return {Object} A JSON object containing all UIDs in the user's Matches array.
+   */
+  static fetchMatches(uid){
+    query = db.collection('users').doc(user_id2).get('matches');
+    return query
+  }
 
   /**
    * Add a like to the card that was swiped right.
@@ -88,20 +98,6 @@ class BackendLogic {
     var status = db.collection('users').doc(id1).update({
       likes: firebase.firestore.FieldValue.arrayUnion([id2])
     });
-    return true;
-  }
-
-  /**
-  * Notify both users who have liked each other.
-  *
-  * @param {String} user_id1 The main user.
-  * @param {String} user_id2 The user_id that user_id1 swiped left on.
-  * @return {Boolean} Whether API call succeeded.
-  */
-  static notifyMatch(user_id1, user_id2){
-    const messaging = firebase.messaging();
-    messaging.usePublicVapidKey(/* */);
-    //TODO
     return true;
   }
 

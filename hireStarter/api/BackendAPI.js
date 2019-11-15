@@ -16,7 +16,7 @@ class BackendAPI {
             var unfilteredCards = BackendLogic.fetchCards(numCards);
 
             myUserCard = this.getMyCard();
-    
+
             unfilteredCards.forEach(element => {
                 // TODO: check if element matches with filter of myUserCard
                 // if so:
@@ -29,7 +29,7 @@ class BackendAPI {
         }
         return filteredCards;
     }
-    
+
     /**
      * Get the current user's user profile card, by using a globall stored UID for the session.
      * 
@@ -58,6 +58,20 @@ class BackendAPI {
         matchedCards = this.getFilteredCards(10);
 
         return matchedCards;
+    }
+
+    /**
+     * Retrieve all data relevant to the Card class
+     * 
+     * @param {string} uid The user's unique identifier.
+     * @return {Object} A formatted JSON object that describes the user.
+     */
+    static fetchCards(uid){
+        visited = db.collection('users').doc(uid).get('unlikes')
+            .concat(
+                db.collection('users').doc(uid).get('likes')                
+            )
+        query = db.collection('users').where('id', "!=", visited).limitToLast(30);
     }
 }
 
