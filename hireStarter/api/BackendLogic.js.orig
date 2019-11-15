@@ -4,6 +4,23 @@ import * from firebase
 db = firestore.collections
 
 class BackendLogic {
+
+<<<<<<< HEAD
+  /*
+  static fetchCards(numCards) {
+      // TODO: make this actually access the backend
+      var userProfiles = [];
+      // This should probably either be a single call numCards, or a numCards loop of random profiles
+      // make sure no duplicate cards pushed
+      for (i = 0; i < numCards; ++i)
+      {
+        userProfiles.push(
+          new UserProfile(
+            (name="Joe Bruin"),
+            (uid=i),
+            (bIsRecruiter=true),
+            (photos=[
+=======
     static fetchCardByUID(uid) {
         // TODO: fill uidUserProfile with backend call
         var uidUserProfile = new UserProfile(
@@ -11,6 +28,7 @@ class BackendLogic {
             uid=uid,
             bIsRecruiter=false,
             photos=[
+>>>>>>> 30225170adcb333b0390b338b81d7a2fb163a09e
               "https://i.imgur.com/cMFc42W.png",
               "https://i.imgur.com/6B55OIA.png"
             ]),
@@ -27,9 +45,9 @@ class BackendLogic {
             )
           )
         );
-        return userProfiles;
       }
-    
+      return userProfiles;
+  }
 
   static fetchCardByUID(uid) {
       // TODO: fill uidUserProfile with backend call
