@@ -4,6 +4,7 @@ import * from firebase
 db = firestore.collections
 
 class BackendLogic {
+  /*
     static fetchCardByUID(uid) {
         // TODO: fill uidUserProfile with backend call
         var uidUserProfile = new UserProfile(
