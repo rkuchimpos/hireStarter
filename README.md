@@ -18,4 +18,5 @@ Once Expo is in place, navigate to the hireStarter directory and type `npm insta
 
 # Testing
 `npm run test` to run all tests
+
 When updating a React component, remember to update its snapshot: `npm test -- --updateSnapshot`
