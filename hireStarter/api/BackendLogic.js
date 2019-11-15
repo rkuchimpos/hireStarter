@@ -1,6 +1,7 @@
 import UserProfile from '../models/UserProfile'
-import { withFirebaseHOC } from '../config/Firebase' 
+import { withFirebaseHOC } from '../config/Firebase'
 
+/** Logic for working with Firestore */
 class BackendLogic {
   db = firebase.firestore()
   /*
@@ -29,7 +30,7 @@ class BackendLogic {
         );
         return userProfiles;
       }
-    
+
 
   static fetchCardByUID(uid) {
       // TODO: fill uidUserProfile with backend call
@@ -63,7 +64,7 @@ class BackendLogic {
 */
   /**
    * Fetch all UIDs found in the user's Matches array
-   * 
+   *
    * @param {string} uid The user's unique identifier.
    * @return {Object} A JSON object containing all UIDs in the user's Matches array.
    */

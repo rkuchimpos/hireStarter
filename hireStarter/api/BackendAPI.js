@@ -1,6 +1,7 @@
 import UserProfile from '../models/UserProfile';
 import BackendLogic from './BackendLogic';
 
+/** Class that handles interfacing with the backend */
 class BackendAPI {
     /**
      * Retrieve all data relevant to the Card class
