@@ -25,7 +25,12 @@ exports[`ProfileCard renders correctly 1`] = `
   >
     <View>
       <RCTScrollView
-        data={Array []}
+        data={
+          Array [
+            "https://i.imgur.com/cMFc42W.png",
+            "https://i.imgur.com/6B55OIA.png",
+          ]
+        }
         disableVirtualization={false}
         getItem={[Function]}
         getItemCount={[Function]}
@@ -72,7 +77,41 @@ exports[`ProfileCard renders correctly 1`] = `
         }
         windowSize={21}
       >
-        <View />
+        <View>
+          <View
+            onLayout={[Function]}
+            style={
+              Array [
+                Object {
+                  "flexDirection": "row",
+                },
+                null,
+              ]
+            }
+          >
+            <Image
+              resizeMode="cover"
+              source={
+                Object {
+                  "uri": "https://i.imgur.com/cMFc42W.png",
+                }
+              }
+              style={
+                Object {
+                  "height": 350,
+                  "width": 730,
+                }
+              }
+            />
+          </View>
+          <View
+            style={
+              Object {
+                "width": 0,
+              }
+            }
+          />
+        </View>
       </RCTScrollView>
       <View
         style={
@@ -88,7 +127,48 @@ exports[`ProfileCard renders correctly 1`] = `
             Object {},
           ]
         }
-      />
+      >
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "#FFFFFF",
+              "borderRadius": 25,
+              "height": 28.125,
+              "marginHorizontal": 18.75,
+              "opacity": 1,
+              "width": 28.125,
+            }
+          }
+        />
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "gray",
+              "borderRadius": 25,
+              "height": 28.125,
+              "marginHorizontal": 18.75,
+              "opacity": 1,
+              "width": 28.125,
+            }
+          }
+        />
+      </View>
     </View>
     <View
       style={

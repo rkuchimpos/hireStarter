@@ -10,6 +10,10 @@ it("ProfileCard renders correctly", () => {
         location={"Los Angeles"}
         description={"I am a software engineer"}
         skills={["Java", "C++"]}
+        photos={[
+          "https://i.imgur.com/cMFc42W.png",
+          "https://i.imgur.com/6B55OIA.png"
+        ]}
       />
     )
     .toJSON();
