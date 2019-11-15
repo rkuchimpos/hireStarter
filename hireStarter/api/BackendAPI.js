@@ -3,6 +3,19 @@ import BackendLogic from './BackendLogic';
 
 class BackendAPI {
     /**
+     * Retrieve all data relevant to the Card class
+     * 
+     * @param {string} uid The user's unique identifier.
+     * @return {Object} A formatted JSON object that describes the user.
+     */
+    static fetchCards(uid){
+        visited = db.collection('users').doc(uid).get('unlikes')
+            .concat(
+                db.collection('users').doc(uid).get('likes')                
+            )
+        query = db.collection('users').where('id', "!=", visited).limitToLast(30);
+    }
+    /**
      * Get a list of user profile cards that match the user's profile filter/skills.
      * 
      * @param {Integer} numCards the number of filtered cards to be retrieved.
@@ -13,8 +26,8 @@ class BackendAPI {
         var filteredCards = [];
         while (foundCards < numCards)
         {
-            var unfilteredCards = BackendLogic.fetchCards(numCards);
-
+            //var unfilteredCards = fetchCards(numCards);
+            var unfilteredCards = ['1', '2', '3']
             myUserCard = this.getMyCard();
 
             unfilteredCards.forEach(element => {
@@ -39,7 +52,7 @@ class BackendAPI {
         // TODO: get locally stored uid
         uid = 1;
         // TODO: implement get card from firebase
-        return BackendLogic.fetchCardByUID(uid);
+        return null //BackendLogic.fetchCardByUID(uid);
     }
 
     /**
@@ -58,20 +71,6 @@ class BackendAPI {
         matchedCards = this.getFilteredCards(10);
 
         return matchedCards;
-    }
-
-    /**
-     * Retrieve all data relevant to the Card class
-     * 
-     * @param {string} uid The user's unique identifier.
-     * @return {Object} A formatted JSON object that describes the user.
-     */
-    static fetchCards(uid){
-        visited = db.collection('users').doc(uid).get('unlikes')
-            .concat(
-                db.collection('users').doc(uid).get('likes')                
-            )
-        query = db.collection('users').where('id', "!=", visited).limitToLast(30);
     }
 }
 

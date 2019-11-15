@@ -1,9 +1,8 @@
-import UserProfile from '../models/UserProfile';
-import * from firebase 
-
-db = firestore.collections
+import UserProfile from '../models/UserProfile'
+import { withFirebaseHOC } from '../config/Firebase' 
 
 class BackendLogic {
+  db = firebase.firestore()
   /*
     static fetchCardByUID(uid) {
         // TODO: fill uidUserProfile with backend call
@@ -133,4 +132,4 @@ class BackendLogic {
     return true;
   }
 }
-export default BackendLogic
+export default withFirebaseHOC(BackendLogic)
