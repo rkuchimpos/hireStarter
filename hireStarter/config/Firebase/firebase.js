@@ -8,9 +8,12 @@ firebase.initializeApp(firebaseConfig)
 
 const Firebase = {
   
-  loginWithGoogle: () => {
+  loginWithGoogle: credential => {
     //var provider = new firebase.auth.GoogleAuthProvider()
-    return firebase.auth().singInWithCredential('google.com')
+    return firebase.auth().signInWithCredential(credential)
+  },
+  getGoogleCredential: (idToken, accessToken) => {
+    return firebase.auth.GoogleAuthProvider.credential(idToken, accessToken)
   },
   setPersistence: () => {
     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)

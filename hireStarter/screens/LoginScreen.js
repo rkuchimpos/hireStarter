@@ -67,6 +67,7 @@ class LoginScreen extends React.Component {
         });
         await this.props.firebase.setPersistence() // Set persistent auth state
         const credential = this.props.firebase.getFacebookCredential(token)
+        console.log(credential)
         const facebookProfileData = await this.props.firebase.loginWithFacebook(credential)
         this.props.navigation.navigate('Home')
         //console.log(facebookProfileData.user);
@@ -100,9 +101,14 @@ class LoginScreen extends React.Component {
           signedIn: true,
           name: result.user.name,
         });
-        console.log("FOO")
-        console.log(result.user);
+        // console.log("FOO")
+        // console.log(result.user);
+        await this.props.firebase.setPersistence() // Set persistent auth state
+        console.log(result)
+        const credential = this.props.firebase.getGoogleCredential(result.idToken, result.accessToken)
+        const googleProfileData = await this.props.firebase.loginWithGoogle(credential)
         this.props.navigation.navigate('Home')
+        console.log(googleProfileData)
       } else {
         console.log("cancelled");
       }
