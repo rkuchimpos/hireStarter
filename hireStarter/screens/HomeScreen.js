@@ -12,10 +12,11 @@ import SimpleLineIcon from "react-native-vector-icons/SimpleLineIcons";
 import Ionicon from "react-native-vector-icons/Ionicons";
 import CardStack, { Card } from "react-native-card-stack-swiper";
 import ProfileCard from "../components/ProfileCard";
-import UserProfile from '../models/UserProfile';
-import BackendAPI from '../api/BackendAPI';
+import UserProfile from "../models/UserProfile";
+import BackendAPI from "../api/BackendAPI";
 
 // get the data for this list from backend
+var myProfile = BackendAPI.getMockProfile(12345);
 var userProfiles = BackendAPI.getMockCards(20);
 
 // TODO: Remove back button on home page
@@ -41,34 +42,49 @@ class HomeScreen extends React.Component {
       )
     };
   };
+
+  onSwipedRight(myUID, otherUID) {
+    console.log("UID " + myUID + " SWIPED RIGHT ON UID " + otherUID);
+  }
+
+  onSwipedLeft() {
+    console.log("SWIPED LEFT");
+  }
+
   render() {
     // TODO: Display stack of cards instead of a single, hard-coded one
     return (
       <View style={styles.container}>
-      <View>
-        <CardStack
-          verticalSwipe={false}
-          renderNoMoreCards={() => (
-            <Text style={{ fontSize: 18, color: "gray", alignSelf: "center" }}>
-              That's all for now.
-            </Text>
-          )}
-          ref={swiper => {
-            this.swiper = swiper;
-          }}
-        >
-          {userProfiles.map(item => (
-            <Card key={item.uid}>
-              <ProfileCard
-                name={item.name}
-                photos={item.photos}
-                location={item.location}
-                skills={item.skills}
-                description={item.description}
-              />
-            </Card>
-          ))}
-        </CardStack>
+        <View>
+          <CardStack
+            verticalSwipe={false}
+            renderNoMoreCards={() => (
+              <Text
+                style={{ fontSize: 18, color: "gray", alignSelf: "center" }}
+              >
+                That's all for now.
+              </Text>
+            )}
+            ref={swiper => {
+              this.swiper = swiper;
+            }}
+          >
+            {userProfiles.map(item => (
+              <Card
+                key={item.uid}
+                onSwipedLeft={() => this.onSwipedLeft()}
+                onSwipedRight={() => this.onSwipedRight(myProfile.uid, item.uid)}
+              >
+                <ProfileCard
+                  name={item.name}
+                  photos={item.photos}
+                  location={item.location}
+                  skills={item.skills}
+                  description={item.description}
+                />
+              </Card>
+            ))}
+          </CardStack>
         </View>
         <View style={styles.controls}>
           <TouchableOpacity
@@ -79,9 +95,9 @@ class HomeScreen extends React.Component {
               height: 75,
               backgroundColor: "#fa4b1d",
               borderRadius: 50,
-              elevation: 10,
+              elevation: 10
             }}
-            onPress={() =>this.swiper.swipeLeft()}
+            onPress={() => this.swiper.swipeLeft()}
           >
             <Ionicon name="ios-close" size={45} color="#fff" />
           </TouchableOpacity>
@@ -94,9 +110,9 @@ class HomeScreen extends React.Component {
               height: 75,
               backgroundColor: "#4dff8f",
               borderRadius: 50,
-              elevation: 10,
+              elevation: 10
             }}
-            onPress={() =>this.swiper.swipeRight()}
+            onPress={() => this.swiper.swipeRight()}
           >
             <Ionicon name="ios-checkmark" size={45} color="#fff" />
           </TouchableOpacity>
@@ -132,17 +148,17 @@ const styles = StyleSheet.create({
     position: "absolute",
     ...Platform.select({
       ios: {
-        zIndex: 10,
+        zIndex: 10
       },
       android: {
-        elevation: 10,
-      },
+        elevation: 10
+      }
     }),
     bottom: 0,
     left: 0,
     right: 0,
-    marginBottom: 10,
-  },
+    marginBottom: 10
+  }
 });
 
 export default HomeScreen;

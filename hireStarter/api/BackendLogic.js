@@ -4,6 +4,10 @@ import { withFirebaseHOC } from '../config/Firebase'
 /** Logic for working with Firestore */
 class BackendLogic {
   db = firebase.firestore()
+
+  // Used for testing; remove when db is fully set up
+  likesByUid = {}
+
   /*
     static fetchCardByUID(uid) {
         // TODO: fill uidUserProfile with backend call
@@ -85,6 +89,40 @@ class BackendLogic {
       likes: firebase.firestore.FieldValue.arrayUnion([id2])
     });
     return true;
+  }
+
+  /**
+   * Add a like to the card that was swiped right.
+   *
+   * @param {String} id1 The user_id of swiping user.
+   * @param {String} id2 The user_id that user swiped right on.
+   * @return {Boolean} Whether API call succeeded.
+   */
+  static addLikeMock(id1, id2) {
+    // Add id2 to id1's list of matches
+    if (id1 in likesByUid) {
+      likesByUid[id1].push(id2);
+    } else {
+      likesByUid[id1] = [id2];
+    }
+    // Add id1 to id2's list of Matches
+    if (id2 in likesByUid) {
+      likesByUid[id2].push(id1);
+    } else {
+      likesByUid[id2] = [id1];
+    }
+    return true;
+  }
+
+  /**
+  * Check if a user has a connection (mutual like).
+  *
+  * @param {String} user_id1 The main user.
+  * @param {String} user_id2 The user_id potentially in connection with user_id1.
+  * @return {Boolean} Whether there is a match
+  */
+  static checkConnectionMock(user_id1, user_id2) {
+    return likesByUid[user_id1].includes(user_id2) && likesByUid[user_id2].includes(user_id1);
   }
 
   /**
