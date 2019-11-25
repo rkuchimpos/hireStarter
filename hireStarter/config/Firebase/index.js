@@ -1,7 +1,7 @@
 import Firebase from './firebase'
-import FirebaseAuth from './firebaseAuth'
+import AuthAPI from '../../api/AuthAPI'
 import { FirebaseProvider, withFirebaseHOC } from './context'
 
 export default Firebase
 
-export { FirebaseProvider, withFirebaseHOC, FirebaseAuth }
+export { FirebaseProvider, withFirebaseHOC, AuthAPI }

@@ -6,6 +6,7 @@ import firebaseConfig from './firebaseConfig'
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig)
 
+// Universal commands: only use if needed for ALL modules
 const Firebase = {
   // firestore
   createNewUser: userData => {

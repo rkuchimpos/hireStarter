@@ -11,7 +11,7 @@ import {
   Image,
   ImageBackground
 } from "react-native";
-import { withFirebaseHOC, FirebaseAuth } from '../config/Firebase'
+import { withFirebaseHOC, AuthAPI } from '../config/Firebase'
 
 class LoginScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -34,11 +34,11 @@ class LoginScreen extends React.Component {
     var loginData = null
     switch(provider) {
       case 'Google':
-        loginData = await FirebaseAuth.loginWithGoogle()
+        loginData = await AuthAPI.loginWithGoogle()
         //console.log(await FirebaseAuth.loginWithGoogle())
         break;
       case 'Facebook':
-        loginData = await FirebaseAuth.loginWithFacebook()
+        loginData = await AuthAPI.loginWithFacebook()
         //console.log(await FirebaseAuth.loginWithFacebook())
         break;
     }

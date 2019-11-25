@@ -3,13 +3,13 @@ import 'firebase/auth'
 import 'firebase/firestore'
 import * as Google from 'expo-google-app-auth';
 import * as Facebook from 'expo-facebook';
-import { googleConfig, facebookConfig } from '../ExternalAuth/authConfig'
+import { googleConfig, facebookConfig } from '../config/ExternalAuth/authConfig'
 
 function setPersistence () {
 	firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
 }
 
-const FirebaseAuth = {
+const AuthAPI = {
 	loginWithGoogle: async () => {
 		try {
 			const {
@@ -53,7 +53,7 @@ loginWithFacebook: async () => {
 			// });
 			setPersistence() // Set persistent auth state
 			const credential = firebase.auth.FacebookAuthProvider.credential(token)
-			console.log(credential)
+			//console.log(credential)
 			console.log("Success");
 			return await firebase.auth().signInWithCredential(credential)
 			//console.log(facebookProfileData.user);
@@ -90,4 +90,4 @@ loginWithFacebook: async () => {
 	}
 }
 
-export default FirebaseAuth
+export default AuthAPI
