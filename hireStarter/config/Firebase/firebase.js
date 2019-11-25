@@ -7,39 +7,6 @@ import firebaseConfig from './firebaseConfig'
 firebase.initializeApp(firebaseConfig)
 
 const Firebase = {
-  
-  loginWithGoogle: credential => {
-    //var provider = new firebase.auth.GoogleAuthProvider()
-    return firebase.auth().signInWithCredential(credential)
-  },
-  getGoogleCredential: (idToken, accessToken) => {
-    return firebase.auth.GoogleAuthProvider.credential(idToken, accessToken)
-  },
-  setPersistence: () => {
-    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-  },
-  getFacebookCredential: token => {
-    return firebase.auth.FacebookAuthProvider.credential(token)
-  },
-  loginWithFacebook: credential => {
-    //var provider = new firebase.auth.FacebookAuthProvider()
-    return firebase.auth().signInWithCredential(credential)
-  },
-//   loginWithEmail: (email, password) => {
-//     return firebase.auth().signInWithEmailAndPassword(email, password)
-//   },
-//   signupWithEmail: (email, password) => {
-//     return firebase.auth().createUserWithEmailAndPassword(email, password)
-//   },
-  signOut: () => {
-    return firebase.auth().signOut()
-  },
-  checkUserAuth: user => {
-    return firebase.auth().onAuthStateChanged(user)
-  },
-  passwordReset: email => {
-    return firebase.auth().sendPasswordResetEmail(email)
-  },
   // firestore
   createNewUser: userData => {
     return firebase
