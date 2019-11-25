@@ -11,8 +11,6 @@ import {
   Image,
   ImageBackground
 } from "react-native";
-import * as Google from 'expo-google-app-auth';
-import * as Facebook from 'expo-facebook';
 import { withFirebaseHOC, FirebaseAuth } from '../config/Firebase'
 
 class LoginScreen extends React.Component {
@@ -33,15 +31,25 @@ class LoginScreen extends React.Component {
   }
 
   login = async (provider) => {
+    var loginData = null
     switch(provider) {
       case 'Google':
-        const googleProfileData = FirebaseAuth.loginWithGoogle()
+        loginData = await FirebaseAuth.loginWithGoogle()
+        //console.log(await FirebaseAuth.loginWithGoogle())
         break;
       case 'Facebook':
-        const facebookProfileData = await FirebaseAuth.loginWithFacebook()
+        loginData = await FirebaseAuth.loginWithFacebook()
+        //console.log(await FirebaseAuth.loginWithFacebook())
         break;
     }
-    this.props.navigation.navigate('Home')
+    // TODO: Create sign up page
+    if (loginData.additionalUserInfo.isNewUser) {
+      console.log('New user')
+      this.props.navigation.navigate('Home')
+    } else {
+      console.log('Not new user')
+      this.props.navigation.navigate('Home')
+    }
   };
 
   render() {
