@@ -5,21 +5,7 @@ import * as Google from 'expo-google-app-auth';
 import * as Facebook from 'expo-facebook';
 import { googleConfig, facebookConfig } from '../config/ExternalAuth/authConfig'
 
-/**
- * Helper function for auth functions - 
- * used to set the persistence to LOCAL.
- *
- */
-function setPersistence () {
-	firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-}
-
-const AuthAPI = {
-	/**
-	 * Log in using Google provider.
-	 *
-	 * @return {Object} JSON object containing user info.
-	 */
+const SignUpAPI = {
 	loginWithGoogle: async () => {
 		try {
 			const {
@@ -45,33 +31,35 @@ const AuthAPI = {
 		} catch (e) {
 			console.log("error", e);
 		}
-		return firebase.auth().signInWithCredential(credential)
-	},
-	/**
-	 * Log in using Facebook provider.
-	 *
-	 * @return {Object} JSON object containing user info.
-	 */
-	loginWithFacebook: async () => {
-		try {
-			const {
-				type,
-				token
-			} = await Facebook.logInWithReadPermissionsAsync(facebookConfig.appId, facebookConfig.options);
-			if (type === 'success') {
-				setPersistence() // Set persistent auth state
-				const credential = firebase.auth.FacebookAuthProvider.credential(token)
-				//console.log(credential)
-				console.log("Success");
-				return await firebase.auth().signInWithCredential(credential)
-				//console.log(facebookProfileData.user);
-				//   var userdata = {
-				//     uid: facebookProfileData.user.uid, 
-				//     name: facebookProfileData.user.displayName
-				//   }
-				//   this.props.firebase.createNewUser(userdata)
-				//   const data = await this.props.firebase.retrieveData(userdata.uid)
-				//   console.log(data.data())
+	return firebase.auth().signInWithCredential(credential)
+},
+loginWithFacebook: async () => {
+	try {
+		const {
+			type,
+			token,
+			expires,
+			permissions,
+			declinedPermissions,
+		} = await Facebook.logInWithReadPermissionsAsync(facebookConfig.appId, facebookConfig.options);
+		if (type === 'success') {
+			// Get the user's name using Facebook's Graph API
+			// this.setState({
+			//   signedIn: true
+			// });
+			setPersistence() // Set persistent auth state
+			const credential = firebase.auth.FacebookAuthProvider.credential(token)
+			//console.log(credential)
+			console.log("Success");
+			return await firebase.auth().signInWithCredential(credential)
+			//console.log(facebookProfileData.user);
+			//   var userdata = {
+			//     uid: facebookProfileData.user.uid, 
+			//     name: facebookProfileData.user.displayName
+			//   }
+			//   this.props.firebase.createNewUser(userdata)
+			//   const data = await this.props.firebase.retrieveData(userdata.uid)
+			//   console.log(data.data())
 			} else {
 				console.log("Cancelled");
 				// type === 'cancel'
@@ -98,4 +86,4 @@ const AuthAPI = {
 	}
 }
 
-export default AuthAPI
+export default SignUpAPI

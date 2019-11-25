@@ -30,6 +30,13 @@ class LoginScreen extends React.Component {
     this.setState({ modalVisible: visible });
   }
 
+  /**
+	 * Log in based on given provider. 
+   * Depending on the return value of the respective login call,
+   * sets the navigation to the proper screen.
+	 *
+   * @param {string} provider Name of provider.
+	 */
   login = async (provider) => {
     var loginData = null
     switch(provider) {
