@@ -22,7 +22,7 @@ class EditProfileScreen extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-      title: "Edit Profile"
+      title: "My Profile"
     };
   };
 
