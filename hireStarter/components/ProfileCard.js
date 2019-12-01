@@ -3,6 +3,7 @@ import {
   Dimensions,
   Image,
   Platform,
+  ScrollView,
   StyleSheet,
   Text,
   View
@@ -78,7 +79,8 @@ const styles = StyleSheet.create({
     height: 350
   },
   profileInfo: {
-    margin: 10
+    margin: 10,
+    height: 220,
   },
   name: {
     //fontWeight: "bold",

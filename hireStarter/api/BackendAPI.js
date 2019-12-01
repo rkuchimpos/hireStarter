@@ -1,5 +1,8 @@
 import UserProfile from '../models/UserProfile';
 import BackendLogic from './BackendLogic';
+import { skills } from "../data/skills";
+import { mockNames } from "../data/mockNames";
+import { mockProfilePhotos } from "../data/mockProfilePhotos";
 
 /** Class that handles interfacing with the backend */
 class BackendAPI {
@@ -65,23 +68,26 @@ class BackendAPI {
      * @return {Array.<UserProfile>} an array of user profiles of length numCards.
      */
     static getMockProfile(uid) {
+      var randomName = mockNames[Math.floor((Math.random() * mockNames.length))];
+      var randomPhoto = mockProfilePhotos[Math.floor((Math.random() * mockProfilePhotos.length))];
+      var randomSkills = [];
+      for (var i = 0; i < 5; i++) {
+        var randomSkill = skills[Math.floor((Math.random() * skills.length))];
+        if (!randomSkills.includes(randomSkill)) {
+          randomSkills.push(randomSkill);
+        }
+      }
       return new UserProfile(
-          name="Joe Bruin",
-          uid=uid,
-          bIsRecruiter=false,
-          photos=[
-            "https://i.imgur.com/cMFc42W.png",
-            "https://i.imgur.com/6B55OIA.png"
+          randomName,
+          uid,
+          false,
+          [
+            randomPhoto,
+            "https://i.imgur.com/hRDnzhH.jpg" // Same secondary profile photo
           ],
-          location="University of California, Los Angeles",
-          skills=[
-            "C++",
-            "Python",
-            "Machine Learning",
-            "Distributed Computing",
-            "Computer Vision"
-          ],
-          description="Yo, my name is Bob and I am looking for full-time work as a software engineer. Outside of work, I enjoy swinging across trees and skateboarding with my friends."
+          "University of California, Los Angeles",
+          randomSkills,
+          "Yo, I am looking for full-time work as a software engineer. Outside of work, I enjoy making music and skateboarding with my friends."
       );
     }
 
