@@ -71,7 +71,7 @@ class BackendAPI {
       var randomName = mockNames[Math.floor((Math.random() * mockNames.length))];
       var randomPhoto = mockProfilePhotos[Math.floor((Math.random() * mockProfilePhotos.length))];
       var randomSkills = [];
-      for (var i = 0; i < 5; i++) {
+      for (var i = 0; i < 3; i++) {
         var randomSkill = skills[Math.floor((Math.random() * skills.length))];
         if (!randomSkills.includes(randomSkill)) {
           randomSkills.push(randomSkill);
