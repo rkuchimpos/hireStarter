@@ -20,7 +20,7 @@ function Item({ uid, name, photo, location, skills, navigate }) {
         <View
           style={{ flexDirection: "column", marginLeft: 10, marginRight: 100 }}
         >
-          <Text>{name}</Text>
+          <Text style={{fontSize: 16}}>{name}</Text>
           <Text style={styles.subtitle}>{location}</Text>
           <Text style={styles.subtitle}>Skills: {skills.join(", ")}</Text>
         </View>
@@ -97,7 +97,10 @@ const styles = StyleSheet.create({
   },
   image: {
     height: 100,
-    width: 100
+    width: 100,
+    borderRadius: 100,
+    borderWidth: 2,
+    borderColor: "#8E2DE2",
   }
 });
 
