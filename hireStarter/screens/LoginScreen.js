@@ -29,7 +29,7 @@ class LoginScreen extends React.Component {
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
-
+  
   /**
 	 * Log in based on given provider. 
    * Depending on the return value of the respective login call,
@@ -52,10 +52,19 @@ class LoginScreen extends React.Component {
     // TODO: Create sign up page
     if (loginData.additionalUserInfo.isNewUser) {
       console.log('New user')
-      this.props.navigation.navigate('Home')
+      console.log(loginData.user.uid)
+      this.props.navigation.navigate('EditProfile', {
+        uid: loginData.user.uid,
+        name: loginData.user.displayName,
+        email: loginData.user.email,
+        newUser: true
+       })
     } else {
       console.log('Not new user')
-      this.props.navigation.navigate('Home')
+      console.log(loginData.user.uid)
+      this.props.navigation.navigate('Home', {
+        uid: loginData.user.uid
+      })
     }
   };
 

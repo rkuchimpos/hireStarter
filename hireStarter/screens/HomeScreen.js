@@ -29,7 +29,9 @@ class HomeScreen extends React.Component {
         <View style={styles.headerRight}>
           <TouchableOpacity
             style={styles.headerButton}
-            onPress={() => navigation.navigate("EditProfile")}
+            onPress={() => navigation.navigate("EditProfile", {
+              uid: navigation.state.params.uid
+            })}
           >
             <SimpleLineIcon name="user" color="#fff" size={25} />
           </TouchableOpacity>
@@ -58,7 +60,18 @@ class HomeScreen extends React.Component {
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
-
+  // TEST FUNCTION
+  // testPassedValues() {
+  //   params = this.props.navigation.state.params
+  //   navigation = this.props.navigation
+  //   console.log("UID: " + params.uid)
+  //   console.log("name: " + params.name) // returns undefined
+  //   console.log("email: " + params.email)
+  //   if (params.name == undefined)
+  //     console.log("name2: " + navigation.getParam('name', 'NO-NAME'))
+  //   // console.log("ProperName: " + titleCase(navigation.getParam('name', 'NO-NAME')))
+  //   console.log(params)
+  // }
   onSwipedRight(matchProfile) {
     console.log(
       "UID " +

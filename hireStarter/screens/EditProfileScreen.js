@@ -3,21 +3,63 @@ import { Dimensions, Image, StyleSheet, Text, TextInput, View, TouchableOpacity 
 import * as ImagePicker from 'expo-image-picker';
 import UserProfile from '../models/UserProfile';
 import BackendAPI from '../api/BackendAPI';
+import { withFirebaseHOC, ProfileAPI } from '../config/Firebase'
 
 const { width } = Dimensions.get("window");
 
-// Temporary, should be fetched from server/cache
-//var myUserProfile = BackendAPI.getMyCard();
-var myUserProfile = BackendAPI.getMockProfile(0);
+function titleCase(string) {
+  var sentence = string.toLowerCase().split(" ");
+  for(var i = 0; i< sentence.length; i++){
+     sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
+  }
+  return sentence.join(" ");
+}
 
 class EditProfileScreen extends React.Component {
   constructor(props) {
     super(props)
+    this.navigation = this.props.navigation
     this.state = {
-      AboutMeText: myUserProfile.description,
+      city: '',
+      connections: [],
+      description: '',
+      email: '',
       image1: "https://retohercules.com/images/transparent-to-the-user-8.png",
-      image2: "https://retohercules.com/images/transparent-to-the-user-8.png"
+      image2: "https://retohercules.com/images/transparent-to-the-user-8.png",
+      name: '',
+      organization: '',
+      potentials: [],
+      recruiter: false,
+      skills: [],
+      uid: this.navigation.getParam('uid', 'NO-UID')
     };
+    this.newUser = this.navigation.getParam('newUser', false)
+    if (this.newUser) {
+      this.state.email = this.navigation.getParam('email')
+      this.state.name = titleCase(this.navigation.getParam('name'))
+    }
+  }
+
+  // Loads data from Firestore here
+  componentDidMount() {
+    console.log(this.state)
+    if (!this.newUser) {
+      ProfileAPI.getUserData(this.state.uid).then((result) => {
+        this.setState(result)
+      })
+    }
+  }
+
+  /**
+   * Based on whether new user, create or update document in
+   * Firestore.
+   */
+  updateUserData() {
+    if (this.newUser) {
+      ProfileAPI.createNewUser(this.state)
+    } else {
+      ProfileAPI.updateUserData(this.state)
+    }
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -26,9 +68,9 @@ class EditProfileScreen extends React.Component {
     };
   };
 
-  changeAboutMeText(value) {
-    this.setState({AboutMeText: value});
-    myUserProfile.description = value;
+  changeDescription(value) {
+    this.setState({description: value});
+    //myUserProfile.description = value;
   }
 
   async pickImage(pic_num) {
@@ -72,8 +114,8 @@ class EditProfileScreen extends React.Component {
             style={styles.TextInputField}
             multiline
             placeholder="Tell us about yourself!"
-            value={this.state.AboutMeText}
-            onChangeText={(value) => this.changeAboutMeText(value)}
+            value={this.state.description}
+            onChangeText={(value) => this.changeDescription(value)}
           />
         </View>
       </View>
@@ -102,4 +144,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default EditProfileScreen;
+export default withFirebaseHOC(EditProfileScreen);
