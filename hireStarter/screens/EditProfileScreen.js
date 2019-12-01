@@ -74,6 +74,21 @@ class EditProfileScreen extends React.Component {
     this.updateUserData() // Please make a submit button to call this
   }
 
+  changeName(value) {
+    this.setState({name: value});
+    this.updateUserData();
+  }
+
+  changeEmail(value) {
+    this.setState({email: value});
+    this.updateUserData();
+  }
+
+  changeLocation(value) {
+    this.setState({city: value});
+    this.updateUserData();
+  }
+
   async pickImage(pic_num) {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -109,6 +124,36 @@ class EditProfileScreen extends React.Component {
             {image2 &&
             <Image source={{ uri: image2 }} style={styles.profilePhoto}/>}
           </TouchableOpacity>
+        </View>
+        <Text style={styles.categoryHeader}>Name</Text>
+        <View style={{backgroundColor: "#fff"}}>
+          <TextInput
+            style={styles.TextInputField}
+            multiline
+            placeholder="Tell us your name!"
+            value={this.state.name}
+            onChangeText={(value) => this.changeName(value)}
+          />
+        </View>
+        <Text style={styles.categoryHeader}>Email</Text>
+        <View style={{backgroundColor: "#fff"}}>
+          <TextInput
+            style={styles.TextInputField}
+            multiline
+            placeholder="Enter your email!"
+            value={this.state.email}
+            onChangeText={(value) => this.changeEmail(value)}
+          />
+        </View>
+        <Text style={styles.categoryHeader}>Location</Text>
+        <View style={{backgroundColor: "#fff"}}>
+          <TextInput
+            style={styles.TextInputField}
+            multiline
+            placeholder="Enter your location!"
+            value={this.state.city}
+            onChangeText={(value) => this.changeLocation(value)}
+          />
         </View>
         <Text style={styles.categoryHeader}>About Me</Text>
         <View style={{backgroundColor: "#fff"}}>
