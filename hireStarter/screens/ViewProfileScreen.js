@@ -19,8 +19,10 @@ const { width } = Dimensions.get("window");
 
 class ViewProfileScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
+    uid = navigation.getParam('uid');
+    // TODO: Display name as the title; fetch from db
     return {
-      title: navigation.getParam('name'),
+      title: uid.toString(),
     };
   };
 
