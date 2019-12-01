@@ -71,6 +71,7 @@ class EditProfileScreen extends React.Component {
   changeDescription(value) {
     this.setState({description: value});
     //myUserProfile.description = value;
+    this.updateUserData() // Please make a submit button to call this
   }
 
   async pickImage(pic_num) {
@@ -83,9 +84,10 @@ class EditProfileScreen extends React.Component {
 
     if (!result.cancelled) {
       if (pic_num == 1) {
-        this.setState({image1: result.uri});
+        console.log(result)
+        this.setState({image1: await ProfileAPI.uploadImage(this.state.uid, 1, result.uri)});
       } else if (pic_num == 2) {
-        this.setState({image2: result.uri});
+        this.setState({image2: await ProfileAPI.uploadImage(this.state.uid, 2, result.uri)});
       }
     }
   };
