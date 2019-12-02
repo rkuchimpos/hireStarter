@@ -29,7 +29,7 @@ class LoginScreen extends React.Component {
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
-  
+
   /**
 	 * Log in based on given provider. 
    * Depending on the return value of the respective login call,
@@ -39,7 +39,7 @@ class LoginScreen extends React.Component {
 	 */
   login = async (provider) => {
     var loginData = null
-    switch(provider) {
+    switch (provider) {
       case 'Google':
         loginData = await AuthAPI.loginWithGoogle()
         //console.log(await FirebaseAuth.loginWithGoogle())
@@ -58,7 +58,7 @@ class LoginScreen extends React.Component {
         name: loginData.user.displayName,
         email: loginData.user.email,
         newUser: true
-       })
+      })
     } else {
       console.log('Not new user')
       console.log(loginData.user.uid)
