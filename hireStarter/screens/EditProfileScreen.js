@@ -13,6 +13,7 @@ import * as ImagePicker from "expo-image-picker";
 import UserProfile from "../models/UserProfile";
 import BackendAPI from "../api/BackendAPI";
 import { withFirebaseHOC, ProfileAPI } from "../config/Firebase";
+import SwitchSelector from "react-native-switch-selector";
 
 const { width } = Dimensions.get("window");
 
@@ -23,6 +24,14 @@ function titleCase(string) {
   }
   return sentence.join(" ");
 }
+
+function convertBooltoInt(bool) {
+    if (bool) {
+      return 0;
+    } else {
+      return 1;
+    }
+  }
 
 class EditProfileScreen extends React.Component {
   constructor(props) {
@@ -55,6 +64,7 @@ class EditProfileScreen extends React.Component {
     if (!this.newUser) {
       ProfileAPI.getUserData(this.state.uid).then(result => {
         this.setState(result);
+        console.log(this.state);
       });
     }
   }
@@ -96,6 +106,13 @@ class EditProfileScreen extends React.Component {
   changeCity(value) {
     this.setState({ city: value });
     //this.updateUserData();
+  }
+
+  changeUserType(value) {
+    this.setState({ recruiter: value });
+    // TODO: take these out later
+    console.log(this.state.recruiter);
+    console.log(convertBooltoInt(this.state.recruiter));
   }
 
   async pickImage(pic_num) {
@@ -199,8 +216,20 @@ class EditProfileScreen extends React.Component {
             onChangeText={value => this.changeDescription(value)}
           />
         </View>
-
-        {/* Add Submit Changes Button */}
+        <SwitchSelector
+          initial={this.state.recruiter ? 0 : 1}
+          textColor="#4293f5"
+          selectedColor="#fff"
+          buttonColor="#4293f5"
+          borderColor="#4293f5"
+          hasPadding
+          options={[
+            {label: "Recruiter", value: true},
+            {label: "Job Seeker", value: false}
+          ]}
+          onPress={value => this.changeUserType(value)}
+          style={styles.switch}
+          />
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
@@ -244,6 +273,10 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#ffffff"
+  },
+  switch: {
+    marginTop: 20,
+    marginHorizontal: 10
   }
 });
 
