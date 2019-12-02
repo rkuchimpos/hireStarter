@@ -217,7 +217,7 @@ class EditProfileScreen extends React.Component {
           />
         </View>
         <SwitchSelector
-          initial={this.state.recruiter ? 0 : 1}
+          initial={this.state.recruiter}
           textColor="#4293f5"
           selectedColor="#fff"
           buttonColor="#4293f5"
@@ -227,7 +227,7 @@ class EditProfileScreen extends React.Component {
             {label: "Recruiter", value: true},
             {label: "Job Seeker", value: false}
           ]}
-          onPress={value => this.changeUserType(value)}
+          onPress={value => this.setState({recruiter: value})}
           style={styles.switch}
           />
         <TouchableOpacity
