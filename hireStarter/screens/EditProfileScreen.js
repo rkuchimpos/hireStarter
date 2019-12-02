@@ -3,6 +3,7 @@ import {
   Dimensions,
   Image,
   KeyboardAvoidingView,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -13,7 +14,7 @@ import * as ImagePicker from "expo-image-picker";
 import UserProfile from "../models/UserProfile";
 import BackendAPI from "../api/BackendAPI";
 import { withFirebaseHOC, ProfileAPI } from "../config/Firebase";
-import SwitchSelector from "react-native-switch-selector";
+import Ionicon from "react-native-vector-icons/Ionicons";
 
 const { width } = Dimensions.get("window");
 
@@ -24,14 +25,6 @@ function titleCase(string) {
   }
   return sentence.join(" ");
 }
-
-function convertBooltoInt(bool) {
-    if (bool) {
-      return 0;
-    } else {
-      return 1;
-    }
-  }
 
 class EditProfileScreen extends React.Component {
   constructor(props) {
@@ -67,6 +60,7 @@ class EditProfileScreen extends React.Component {
         console.log(this.state);
       });
     }
+    this.navigation.setParams({ referencedSaveProfile: this.updateUserData.bind(this) });
   }
 
   /**
@@ -83,7 +77,17 @@ class EditProfileScreen extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-      title: "My Profile"
+      title: "My Profile",
+      headerRight: () => (
+      <View style={styles.headerRight}>
+        <TouchableOpacity
+          style={styles.headerButton}
+          onPress={() => navigation.state.params.referencedSaveProfile()}
+        >
+          <Ionicon name="ios-save" color="#fff" size={25} />
+        </TouchableOpacity>
+      </View>
+      )
     };
   };
 
@@ -108,11 +112,13 @@ class EditProfileScreen extends React.Component {
     //this.updateUserData();
   }
 
+  changeOrganization(value) {
+    this.setState({ organization: value });
+    //this.updateUserData();
+  }
+
   changeUserType(value) {
     this.setState({ recruiter: value });
-    // TODO: take these out later
-    console.log(this.state.recruiter);
-    console.log(convertBooltoInt(this.state.recruiter));
   }
 
   async pickImage(pic_num) {
@@ -141,7 +147,8 @@ class EditProfileScreen extends React.Component {
     let { image1, image2 } = this.state;
 
     return (
-      <KeyboardAvoidingView behavior="position" style={styles.container}>
+      <KeyboardAvoidingView behavior="padding" enabled keyboardVerticalOffset={100} style={styles.container}>
+      <ScrollView>
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity
             style={{
@@ -206,6 +213,16 @@ class EditProfileScreen extends React.Component {
             onChangeText={value => this.changeCity(value)}
           />
         </View>
+        <Text style={styles.categoryHeader}>Organization</Text>
+        <View style={{ backgroundColor: "#fff" }}>
+          <TextInput
+            style={styles.TextInputField}
+            multiline
+            placeholder="Enter your organization!"
+            value={this.state.organization}
+            onChangeText={value => this.changeOrganization(value)}
+          />
+        </View>
         <Text style={styles.categoryHeader}>About Me</Text>
         <View style={{ backgroundColor: "#fff" }}>
           <TextInput
@@ -216,28 +233,7 @@ class EditProfileScreen extends React.Component {
             onChangeText={value => this.changeDescription(value)}
           />
         </View>
-        <SwitchSelector
-          initial={this.state.recruiter ? 0 : 1}
-          textColor="#4293f5"
-          selectedColor="#fff"
-          buttonColor="#4293f5"
-          borderColor="#4293f5"
-          hasPadding
-          options={[
-            {label: "Recruiter", value: true},
-            {label: "Job Seeker", value: false}
-          ]}
-          onPress={value => this.changeUserType(value)}
-          style={styles.switch}
-          />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            this.updateUserData();
-          }}
-        >
-          <Text style={styles.text}> Save Changes </Text>
-        </TouchableOpacity>
+      </ScrollView>
       </KeyboardAvoidingView>
     );
   }
@@ -262,21 +258,19 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     marginVertical: 10
   },
-  button: {
-    backgroundColor: "#4293f5",
-    alignItems: "center",
-    padding: 10,
-    borderRadius: 20,
-    marginTop: 20,
-    marginLeft: 100,
-    marginRight: 100
-  },
   text: {
     color: "#ffffff"
   },
-  switch: {
-    marginTop: 20,
-    marginHorizontal: 10
+  headerRight: {
+    flexDirection: "row"
+  },
+  headerButton: {
+    marginRight: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    width: 50,
+    height: 50,
+    borderRadius: 100
   }
 });
 
