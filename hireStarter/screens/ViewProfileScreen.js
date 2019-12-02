@@ -54,7 +54,9 @@ class ViewProfileScreen extends React.Component {
           <View style={{marginTop: 10}}>
             <View style={styles.section}>
               <Text style={styles.sectionHeader}>{userProfile.name}</Text>
+              <Text style={styles.subtext}>{userProfile.email}</Text>
               <Text style={styles.subtext}>{userProfile.location}</Text>
+              <Text style={styles.subtext}>{userProfile.city}</Text>
             </View>
             <View style={styles.section}>
               <Text style={styles.sectionHeader}>About</Text>

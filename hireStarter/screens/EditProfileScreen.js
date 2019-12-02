@@ -204,7 +204,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     borderRadius: 20,
-    margin: 30,
+    marginTop: 20,
+    marginLeft: 100,
+    marginRight: 100
   },
   text: {
     color: "#ffffff"
