@@ -24,8 +24,8 @@ class EditProfileScreen extends React.Component {
       connections: [],
       description: '',
       email: '',
-      image1: "https://cdn4.iconfinder.com/data/icons/eldorado-user/40/add_friend-512.png",//"https://retohercules.com/images/transparent-to-the-user-8.png",
-      image2: "https://cdn4.iconfinder.com/data/icons/eldorado-user/40/add_friend-512.png",//"https://retohercules.com/images/transparent-to-the-user-8.png",
+      image1: "https://retohercules.com/images/transparent-to-the-user-8.png",
+      image2: "https://retohercules.com/images/transparent-to-the-user-8.png",
       name: '',
       organization: '',
       potentials: [],
@@ -71,22 +71,22 @@ class EditProfileScreen extends React.Component {
   changeDescription(value) {
     this.setState({description: value});
     //myUserProfile.description = value;
-    this.updateUserData() // Please make a submit button to call this
+    //this.updateUserData() // Please make a submit button to call this
   }
 
   changeName(value) {
     this.setState({name: value});
-    this.updateUserData();
+    //this.updateUserData();
   }
 
   changeEmail(value) {
     this.setState({email: value});
-    this.updateUserData();
+    //this.updateUserData();
   }
 
-  changeLocation(value) {
+  changeCity(value) {
     this.setState({city: value});
-    this.updateUserData();
+    //this.updateUserData();
   }
 
   async pickImage(pic_num) {
@@ -145,14 +145,14 @@ class EditProfileScreen extends React.Component {
             onChangeText={(value) => this.changeEmail(value)}
           />
         </View>
-        <Text style={styles.categoryHeader}>Location</Text>
+        <Text style={styles.categoryHeader}>City</Text>
         <View style={{backgroundColor: "#fff"}}>
           <TextInput
             style={styles.TextInputField}
             multiline
             placeholder="Enter your location!"
             value={this.state.city}
-            onChangeText={(value) => this.changeLocation(value)}
+            onChangeText={(value) => this.changeCity(value)}
           />
         </View>
         <Text style={styles.categoryHeader}>About Me</Text>
@@ -165,6 +165,16 @@ class EditProfileScreen extends React.Component {
             onChangeText={(value) => this.changeDescription(value)}
           />
         </View>
+
+        {/* Add Submit Changes Button */}
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            this.updateUserData();
+          }}
+        >
+          <Text style={styles.text}> Save Changes </Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -188,6 +198,16 @@ const styles = StyleSheet.create({
   TextInputField: {
     marginHorizontal: 15,
     marginVertical: 10
+  },
+  button: {
+    backgroundColor: "#4293f5",
+    alignItems: "center",
+    padding: 10,
+    borderRadius: 20,
+    margin: 30,
+  },
+  text: {
+    color: "#ffffff"
   }
 });
 
