@@ -34,7 +34,8 @@ class ProfileCard extends React.Component {
           </View>
           <View style={styles.profileInfo}>
             <Text style={styles.name}>{this.props.name}</Text>
-            <Text style={styles.subtitle}>{this.props.location}</Text>
+            <Text style={styles.subtitle}>{this.props.organization}</Text>
+            <Text style={styles.subtitle}>{this.props.city}</Text>
             <Text style={styles.description}>{this.props.description}</Text>
             <View style={styles.skillList}>
               {this.props.skills.map(skill => (

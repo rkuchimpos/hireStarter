@@ -78,7 +78,6 @@ class MatchesScreen extends React.Component {
         </View>     
       );
     } else {
-      
       return (
         <View style={styles.container}>
           <FlatList
