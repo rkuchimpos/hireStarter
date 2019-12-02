@@ -13,6 +13,7 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import { withFirebaseHOC, ProfileAPI } from "../config/Firebase";
 import Ionicon from "react-native-vector-icons/Ionicons";
+import ToggleSwitch from 'toggle-switch-react-native'
 
 const { width } = Dimensions.get("window");
 
@@ -115,8 +116,12 @@ class EditProfileScreen extends React.Component {
     //this.updateUserData();
   }
 
-  changeUserType(value) {
-    this.setState({ recruiter: value });
+  changeUserType() {
+    if (this.state.recruiter == true) {
+      this.setState({ recruiter: false });
+    } else {
+      this.setState({ recruiter: true });
+    }
   }
 
   async pickImage(pic_num) {
@@ -231,6 +236,16 @@ class EditProfileScreen extends React.Component {
             onChangeText={value => this.changeDescription(value)}
           />
         </View>
+        <View style={styles.switch}>
+        <ToggleSwitch
+          isOn={this.state.recruiter}
+          onColor="green"
+          offColor="red"
+          size="large"
+          onToggle={isOn => this.changeUserType()}
+        />
+        <Text style={styles.TextInputField}>Are you a recruiter?</Text>
+        </View>
       </ScrollView>
       </KeyboardAvoidingView>
     );
@@ -269,6 +284,10 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 100
+  },
+  switch: {
+    alignItems: "center",
+    margin: 20
   }
 });
 
