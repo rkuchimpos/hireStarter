@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-import BackendAPI from "../api/BackendAPI";
 import { withFirebaseHOC, ProfileAPI } from '../config/Firebase'
 
 function Item({ uid, name, photo, organization, skills, navigate }) {

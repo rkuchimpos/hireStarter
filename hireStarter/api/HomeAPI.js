@@ -52,7 +52,10 @@ const HomeAPI = {
         return true;
     },
 
-
+    getFirstPhoto: async id => {
+        user_doc = firebase.firestore().collection('users').doc(id).get()
+        return user_doc.data().image1
+    },
     /**
      * Retrieve all data relevant to the Card class
      *

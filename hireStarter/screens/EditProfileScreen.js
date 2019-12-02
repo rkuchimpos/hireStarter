@@ -10,8 +10,6 @@ import {
   View
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import UserProfile from "../models/UserProfile";
-import BackendAPI from "../api/BackendAPI";
 import { withFirebaseHOC, ProfileAPI } from "../config/Firebase";
 import SwitchSelector from "react-native-switch-selector";
 
