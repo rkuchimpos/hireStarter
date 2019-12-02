@@ -14,7 +14,7 @@ import SimpleLineIcon from "react-native-vector-icons/SimpleLineIcons";
 import Ionicon from "react-native-vector-icons/Ionicons";
 import CardStack, { Card } from "react-native-card-stack-swiper";
 import ProfileCard from "../components/ProfileCard";
-import { withFirebaseHOC, ProfileAPI, HomeAPI } from '../config/Firebase'
+import { withFirebaseHOC, ProfileAPI, HomeAPI, LoadAPI } from '../config/Firebase'
 
 // TODO: Remove back button on home page
 class HomeScreen extends React.Component {
@@ -40,7 +40,6 @@ class HomeScreen extends React.Component {
         this.setState({
           cards: data
         })
-        console.log(this.state.cards)
         this.setState({ loading: false })
       })
     })
@@ -87,9 +86,11 @@ class HomeScreen extends React.Component {
   //   // console.log("ProperName: " + titleCase(navigation.getParam('name', 'NO-NAME')))
   //   console.log(params)
   // }
-  onSwipedRight(matchProfile) {
-    HomeAPI.addPotential(this.state.uid, matchProfile.uid);
-    if (HomeAPI.checkConnection(this.state.uid, matchProfile.uid)) {
+  async onSwipedRight(matchProfile) {
+    await HomeAPI.addPotential(this.state.uid, matchProfile.uid);
+    console.log("This is not true")
+    if (await HomeAPI.checkConnection(this.state.uid, matchProfile.uid)) {
+      console.log("This is true")
       HomeAPI.addMatches(this.state.uid, matchProfile.uid);
       this.setState({ match: matchProfile })
       this.setModalVisible(true);
@@ -210,7 +211,7 @@ class HomeScreen extends React.Component {
                 <Card
                   key={item.uid}
                   onSwipedLeft={() => this.onSwipedLeft()}
-                  onSwipedRight={() => this.onSwipedRight(item)}
+                  onSwipedRight={ async () => await this.onSwipedRight(item)}
                 >
                   <ProfileCard
                     name={item.name}
