@@ -161,7 +161,8 @@ class HomeScreen extends React.Component {
                 onPress={() => {
                   this.setModalVisible(false);
                   this.props.navigation.navigate("ViewProfile", {
-                    uid: this.state.match.uid
+                    uid: this.state.match.uid,
+                    name: this.state.match.name
                   });
                 }}
               >
