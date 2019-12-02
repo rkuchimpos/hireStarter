@@ -12,6 +12,7 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import { withFirebaseHOC, ProfileAPI } from "../config/Firebase";
 import SwitchSelector from "react-native-switch-selector";
+import Skill from "../components/Skill";
 
 const { width } = Dimensions.get("window");
 
@@ -47,6 +48,7 @@ class EditProfileScreen extends React.Component {
       potentials: [],
       recruiter: false,
       skills: [],
+      skillInputText: "",
       uid: this.navigation.getParam("uid", "NO-UID")
     };
     this.newUser = this.navigation.getParam("newUser", false);
@@ -111,6 +113,19 @@ class EditProfileScreen extends React.Component {
     // TODO: take these out later
     console.log(this.state.recruiter);
     console.log(convertBooltoInt(this.state.recruiter));
+  }
+
+  addSkillListener = () => {
+    const value  = this.state.skillInputText;
+    console.log(value);
+    if (value == "") { return; }
+
+    updatedSkills = this.state.skills;
+    updatedSkills.push(value);
+    this.setState({ skills: updatedSkills });
+    this.setState({ skillInputText: "" });
+    // TODO: take these out later
+    console.log(this.state.skills);
   }
 
   async pickImage(pic_num) {
@@ -204,6 +219,28 @@ class EditProfileScreen extends React.Component {
             onChangeText={value => this.changeCity(value)}
           />
         </View>
+        <Text style={styles.categoryHeader}>Skills</Text>
+        <View style={styles.skillList}>
+          {this.state.skills.map(skill => (
+            <View style={{ marginRight: 5, marginBottom: 5 }} key={skill}>
+              <Skill skill={skill} />
+            </View>
+          ))}
+        </View>
+        <View style={{ backgroundColor: "#fff" }}>
+          <TextInput
+            style={styles.TextInputField}
+            placeholder="New Skill Name"
+            value={this.state.skillInputText}
+            onChangeText={value => this.setState({ skillInputText: value})}
+          />
+        </View>
+        <TouchableOpacity
+            style={styles.button}
+            onPress={this.addSkillListener}
+          >
+            <Text style={styles.text}> Add Skill </Text>
+        </TouchableOpacity>
         <Text style={styles.categoryHeader}>About Me</Text>
         <View style={{ backgroundColor: "#fff" }}>
           <TextInput
@@ -275,6 +312,12 @@ const styles = StyleSheet.create({
   switch: {
     marginTop: 20,
     marginHorizontal: 10
+  },
+  skillList: {
+    marginTop: 20,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center"
   }
 });
 
