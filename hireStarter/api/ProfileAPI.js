@@ -40,6 +40,14 @@ const SignUpAPI = {
     doc = await firebase.firestore().collection('users').doc(`${uid}`).get()
     return doc.data()
   },
+  getConnections: async matches => {
+    var result = []
+    for (const match of matches) {
+      const doc = await firebase.firestore().collection('users').doc(`${match}`).get()
+      result.push(doc.data())
+    }
+    return result
+  },
   /**
    * Uploads image to Firebase Storage.
    * 

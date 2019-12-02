@@ -37,7 +37,9 @@ class HomeScreen extends React.Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.headerButton}
-            onPress={() => navigation.navigate("Matches")}
+            onPress={() => navigation.navigate("Matches", {
+              uid: navigation.state.params.uid
+            })}
           >
             <SimpleLineIcon name="people" color="#fff" size={25} />
           </TouchableOpacity>
