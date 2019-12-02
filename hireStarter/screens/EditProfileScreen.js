@@ -11,8 +11,6 @@ import {
   View
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import UserProfile from "../models/UserProfile";
-import BackendAPI from "../api/BackendAPI";
 import { withFirebaseHOC, ProfileAPI } from "../config/Firebase";
 import Ionicon from "react-native-vector-icons/Ionicons";
 

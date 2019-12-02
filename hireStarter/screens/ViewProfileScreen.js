@@ -9,51 +9,48 @@ import {
   TextInput,
   View
 } from "react-native";
+import Ionicon from "react-native-vector-icons/Ionicons";
 import SwiperFlatList from "react-native-swiper-flatlist";
-import UserProfile from "../models/UserProfile";
 import Skill from "../components/Skill";
-import BackendAPI from '../api/BackendAPI';
-import BackendLogic from '../api/BackendLogic';
-import { withFirebaseHOC, ProfileAPI } from '../config/Firebase'
+import { withFirebaseHOC, ProfileAPI } from "../config/Firebase";
 
 const { width } = Dimensions.get("window");
 
 class ViewProfileScreen extends React.Component {
   constructor(props) {
-    super(props)
-    this.navigation = this.props.navigation
+    super(props);
+    this.navigation = this.props.navigation;
     this.state = {
-      city: '',
+      city: "",
       connections: [],
-      description: '',
-      email: '',
+      description: "",
+      email: "",
       image1: "https://retohercules.com/images/transparent-to-the-user-8.png",
       image2: "https://retohercules.com/images/transparent-to-the-user-8.png",
-      name: this.navigation.getParam('name'),
-      organization: '',
+      name: this.navigation.getParam("name"),
+      organization: "",
       potentials: [],
       recruiter: false,
       skills: [],
-      uid: this.navigation.getParam('uid', 'NO-UID')
+      uid: this.navigation.getParam("uid", "NO-UID")
     };
   }
   static navigationOptions = ({ navigation }) => {
     // TODO: Display name as the title; fetch from db
     return {
-      title: navigation.getParam('name'),
+      title: navigation.getParam("name")
     };
   };
 
   // Loads data from Firestore here
   componentDidMount() {
-    console.log(this.state)
-    ProfileAPI.getUserData(this.state.uid).then((result) => {
-      this.setState(result)
-    })
+    console.log(this.state);
+    ProfileAPI.getUserData(this.state.uid).then(result => {
+      this.setState(result);
+    });
   }
 
   render() {
-    console.log("USER PROF:")
     return (
       <View style={styles.container}>
         <ScrollView>
@@ -71,26 +68,60 @@ class ViewProfileScreen extends React.Component {
               showPagination
             />
           </View>
-          <View style={{marginTop: 10}}>
+          <View style={{ marginTop: 10 }}>
             <View style={styles.section}>
               <Text style={styles.sectionHeader}>{this.state.name}</Text>
-              <Text style={styles.subtext}>{this.state.organization}</Text>
-              <Text style={styles.subtext}>{this.state.city}</Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Ionicon
+                  name="ios-briefcase"
+                  color="#757575"
+                  size={16}
+                  style={{ marginRight: 5 }}
+                />
+                <Text style={styles.subtext}>{this.state.organization}</Text>
+              </View>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Ionicon
+                  name="ios-pin"
+                  color="#757575"
+                  size={16}
+                  style={{ marginLeft: 2, marginRight: 6 }}
+                />
+                <Text style={styles.subtext}>{this.state.city}</Text>
+              </View>
+            </View>
+            <View style={styles.section}>
+              <Text style={styles.sectionHeader}>Contact</Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Ionicon
+                  name="ios-mail"
+                  color="#757575"
+                  size={16}
+                  style={{ marginRight: 5 }}
+                />
+                <Text style={styles.subtext}>{this.state.email}</Text>
+              </View>
             </View>
             <View style={styles.section}>
               <Text style={styles.sectionHeader}>About</Text>
-              <Text style={styles.subtext}>{this.state.email}</Text>
               <Text style={styles.subtext}>{this.state.description}</Text>
             </View>
             <View style={styles.section}>
               <Text style={styles.sectionHeader}>Skills</Text>
-              <View style={styles.skillList}>
-                {this.state.skills.map(skill => (
-                  <View style={{ marginRight: 5, marginBottom: 5 }} key={skill}>
-                    <Skill skill={skill} />
-                  </View>
-                ))}
-              </View>
+              {this.state.skills.length === 0 ? (
+                <Text style={styles.subtext}>No skills to show</Text>
+              ) : (
+                <View style={styles.skillList}>
+                  {this.state.skills.map(skill => (
+                    <View
+                      style={{ marginRight: 5, marginBottom: 5 }}
+                      key={skill}
+                    >
+                      <Skill skill={skill} />
+                    </View>
+                  ))}
+                </View>
+              )}
             </View>
           </View>
         </ScrollView>
