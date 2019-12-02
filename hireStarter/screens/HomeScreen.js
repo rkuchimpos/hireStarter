@@ -85,6 +85,10 @@ setModalVisible(visible) {
 //   console.log(params)
 // }
 onSwipedRight(matchProfile) {
+  HomeAPI.addPotential(this.state.uid, matchProfile.uid);
+  if(HomeAPI.checkConnection(this.state.uid, matchProfile.uid)){
+    HomeAPI.addMatches(this.state.uid, matchProfile.uid);
+  }
   // console.log(
   //   "UID " +
   //   this.state.uid +

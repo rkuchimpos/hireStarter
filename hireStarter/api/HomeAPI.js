@@ -12,7 +12,7 @@ const HomeAPI = {
      */
     addPotential: async (id1, id2) => {
         status = await firebase.firestore().collection('users').doc(`${id1}`).update({
-            likes: firebase.firestore.FieldValue.arrayUnion([`${id1}`])
+            potentials: firebase.firestore.FieldValue.arrayUnion(`${id2}`)
         });
         return true;
     },
@@ -21,30 +21,33 @@ const HomeAPI = {
      * Check if a user has a connection (mutual like).
      *
      * @param {String} user_id1 The main user.
-     * @param {String} user_id2 The user_id potentially in connection with user_id1.
+     * @param {String} user_id2 The user_id2 potentially in connection with user_id1.
      * @return {Boolean} Whether API call succeeded.
      */
     checkConnection: async (user_id1, user_id2) => {
-        var query = firebase.firestore().collection('users').doc(user_id2).where('likes', "==", user_id1);
-        if (query.length == 0) {
-            return false;
+        collection = firebase.firestore().collection('users')
+        query = await collection.doc(`${user_id2}`).get()
+        potential_list = query.data().potentials
+        if (potential_list.includes(user_id1)){
+            return true;
         }
-        return true;
+        return false;
     },
 
     /**
     * Save that a user has established a connection (mutual like).
     *
-    * @param {String} user_id1 The main user.
-    * @param {String} user_id2 The user_ids th
+    * @param {String} id1 The main user.
+    * @param {String} id2 The user_ids th
     * @return {Boolean} Whether API call succeeded.
     */
-    addMatches: async (user_id1, user_id2) => {
-        status = await firebase.firestore().collection('users').doc(id1).update({
-            connections: firebase.firestore.FieldValue.arrayUnion([id2])
+    addMatches: async (id1, id2) => {
+        collection = firebase.firestore().collection('users')
+        status1 = await firebase.firestore().collection('users').doc(id1).update({
+            connections: firebase.firestore.FieldValue.arrayUnion(`${id2}`)
         });
-        status = await firebase.firestore().collection('users').doc(id2).update({
-            cnonections: firebase.firestore.FieldValue.arrayUnion([id1])
+        status2 = await firebase.firestore().collection('users').doc(id2).update({
+            connections: firebase.firestore.FieldValue.arrayUnion(`${id1}`)
         });
         return true;
     },
