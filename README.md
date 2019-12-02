@@ -5,6 +5,8 @@ A human approach to talent search
 We are using Expo (https://expo.io/learn).
 Once Expo is in place, navigate to the hireStarter directory and type `npm install`, then `expo start`.
 
+If you have the Expo app installed on your phone, you can scan the generated QR code and run the app locally.
+
 # Structure
 - /android: Contains Android-specific configuration files
 - /api: Logic for interfacing with Firebase backend
