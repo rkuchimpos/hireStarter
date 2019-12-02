@@ -88,7 +88,7 @@ class MatchesScreen extends React.Component {
                 uid={item.uid}
                 name={item.name}
                 photo={item.image1}
-                location={item.organization}
+                organization={item.organization}
                 skills={item.skills}
               />
             )}
