@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   description: {
     color: "#404040",
     fontSize: 14,
-    marginTop: 20
+    marginTop: 15,
   },
   skillList: {
     marginTop: 20,

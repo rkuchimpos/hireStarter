@@ -173,6 +173,7 @@ exports[`ProfileCard renders correctly 1`] = `
     <View
       style={
         Object {
+          "height": 220,
           "margin": 10,
         }
       }
@@ -194,15 +195,21 @@ exports[`ProfileCard renders correctly 1`] = `
             "fontSize": 14,
           }
         }
-      >
-        Los Angeles
-      </Text>
+      />
+      <Text
+        style={
+          Object {
+            "color": "#909090",
+            "fontSize": 14,
+          }
+        }
+      />
       <Text
         style={
           Object {
             "color": "#404040",
             "fontSize": 14,
-            "marginTop": 20,
+            "marginTop": 15,
           }
         }
       >
