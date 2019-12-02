@@ -192,4 +192,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default withFirebaseHOC(LoginScreen);
+export default LoginScreen;

@@ -280,4 +280,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default withFirebaseHOC(EditProfileScreen);
+export default EditProfileScreen;
