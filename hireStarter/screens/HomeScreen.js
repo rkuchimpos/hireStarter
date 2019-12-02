@@ -324,4 +324,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default withFirebaseHOC(HomeScreen);
+export default HomeScreen;

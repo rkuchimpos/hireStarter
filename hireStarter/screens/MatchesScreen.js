@@ -142,4 +142,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default withFirebaseHOC(MatchesScreen);
+export default MatchesScreen;

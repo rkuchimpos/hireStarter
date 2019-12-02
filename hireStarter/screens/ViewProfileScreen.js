@@ -40,7 +40,7 @@ class ViewProfileScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     // TODO: Display name as the title; fetch from db
     return {
-      title: this.state.name,
+      title: navigation.getParam('name'),
     };
   };
 
@@ -143,4 +143,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default withFirebaseHOC(ViewProfileScreen);
+export default ViewProfileScreen;
