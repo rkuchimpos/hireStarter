@@ -10,7 +10,7 @@ import { googleConfig, facebookConfig } from '../config/ExternalAuth/authConfig'
  * used to set the persistence to LOCAL.
  *
  */
-function setPersistence () {
+function setPersistence() {
 	firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
 }
 
@@ -29,12 +29,6 @@ const AuthAPI = {
 				user
 			} = await Google.logInAsync(googleConfig);
 			if (type === "success") {
-			//   this.setState({
-			//     signedIn: true,
-			//     name: user.name,
-			//   });
-				// console.log("FOO")
-				// console.log(result.user);
 				await setPersistence() // Set persistent auth state
 				const credential = firebase.auth.GoogleAuthProvider.credential(idToken, accessToken)
 				console.log("success")
@@ -47,6 +41,7 @@ const AuthAPI = {
 		}
 		return firebase.auth().signInWithCredential(credential)
 	},
+
 	/**
 	 * Log in using Facebook provider.
 	 *
@@ -64,14 +59,6 @@ const AuthAPI = {
 				//console.log(credential)
 				console.log("Success");
 				return await firebase.auth().signInWithCredential(credential)
-				//console.log(facebookProfileData.user);
-				//   var userdata = {
-				//     uid: facebookProfileData.user.uid, 
-				//     name: facebookProfileData.user.displayName
-				//   }
-				//   this.props.firebase.createNewUser(userdata)
-				//   const data = await this.props.firebase.retrieveData(userdata.uid)
-				//   console.log(data.data())
 			} else {
 				console.log("Cancelled");
 				// type === 'cancel'
@@ -81,12 +68,8 @@ const AuthAPI = {
 			console.log(message);
 		}
 	},
-	//   loginWithEmail: (email, password) => {
-	//     return firebase.auth().signInWithEmailAndPassword(email, password)
-	//   },
-	//   signupWithEmail: (email, password) => {
-	//     return firebase.auth().createUserWithEmailAndPassword(email, password)
-	//   },
+
+	// UNUSED FUNCTIONS
 	signOut: () => {
 		return firebase.auth().signOut()
 	},

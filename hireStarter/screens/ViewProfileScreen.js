@@ -11,10 +11,7 @@ import {
 } from "react-native";
 import Ionicon from "react-native-vector-icons/Ionicons";
 import SwiperFlatList from "react-native-swiper-flatlist";
-import UserProfile from "../models/UserProfile";
 import Skill from "../components/Skill";
-import BackendAPI from "../api/BackendAPI";
-import BackendLogic from "../api/BackendLogic";
 import { withFirebaseHOC, ProfileAPI } from "../config/Firebase";
 
 const { width } = Dimensions.get("window");

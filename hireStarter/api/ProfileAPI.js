@@ -9,14 +9,15 @@ const SignUpAPI = {
    * 
    * @param {Object} userData A JSON object containing all user profile data.
    */
-	createNewUser: userData => {
+  createNewUser: userData => {
     firebase.firestore().collection('users').doc(`${userData.uid}`).set(userData)
-    .then(function() {
-      console.log("Document successfully created!")
-    }).catch(function(error) {
-      console.log("Error creating document:", error);
-    });
+      .then(function () {
+        console.log("Document successfully created!")
+      }).catch(function (error) {
+        console.log("Error creating document:", error);
+      });
   },
+
   /**
    * Update an existing user document in Firestore based on given user data.
    * 
@@ -24,12 +25,13 @@ const SignUpAPI = {
    */
   updateUserData: userData => {
     firebase.firestore().collection('users').doc(`${userData.uid}`).update(userData)
-    .then(function() {
-      console.log("Document successfully updated!")
-    }).catch(function(error) {
-      console.log("Error updating document:", error);
-    });
+      .then(function () {
+        console.log("Document successfully updated!")
+      }).catch(function (error) {
+        console.log("Error updating document:", error);
+      });
   },
+
   /**
    * Retrieve existing data from Firestore document.
    * 
@@ -40,6 +42,13 @@ const SignUpAPI = {
     doc = await firebase.firestore().collection('users').doc(`${uid}`).get()
     return doc.data()
   },
+
+  /**
+   * Retrieve document data of given list of uids.
+   * 
+   * @param {Array} matches List of uids.
+   * @return {Array} List of JSON objects containing user data.
+   */
   getConnections: async matches => {
     var result = []
     for (const match of matches) {
@@ -66,8 +75,8 @@ const SignUpAPI = {
   },
   // TEST FUNCTIONS
   downloadImage: async () => {
-		storage = firebase.storage().ref()
-		return await storage.child('testAssests/baboon_candid.jpeg').getDownloadURL() 
+    storage = firebase.storage().ref()
+    return await storage.child('testAssests/baboon_candid.jpeg').getDownloadURL()
   },
   updateArray: (uid, field, value) => {
     doc = firebase.firestore().collection('users').doc(`${uid}`)
@@ -76,14 +85,14 @@ const SignUpAPI = {
       [field]: array.arrayUnion(value)
     })
   },
-	submitRef: async user => {
-		collection = firebase.firestore().collection('users')
-		ref = await collection.doc('WBPTWR00CnhKTKBzBXVUGBtyVOz1')
-		array = firebase.firestore.FieldValue
-		return await collection.doc(`${user}`).update({
-			connections: array.arrayUnion(ref)
-		})
-	}
+  submitRef: async user => {
+    collection = firebase.firestore().collection('users')
+    ref = await collection.doc('WBPTWR00CnhKTKBzBXVUGBtyVOz1')
+    array = firebase.firestore.FieldValue
+    return await collection.doc(`${user}`).update({
+      connections: array.arrayUnion(ref)
+    })
+  }
 }
 
 export default SignUpAPI

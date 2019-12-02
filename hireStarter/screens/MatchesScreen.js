@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-import BackendAPI from "../api/BackendAPI";
 import { withFirebaseHOC, ProfileAPI } from '../config/Firebase'
 
 function Item({ uid, name, photo, organization, skills, navigate }) {
@@ -88,7 +87,7 @@ class MatchesScreen extends React.Component {
                 uid={item.uid}
                 name={item.name}
                 photo={item.image1}
-                location={item.organization}
+                organization={item.organization}
                 skills={item.skills}
               />
             )}
