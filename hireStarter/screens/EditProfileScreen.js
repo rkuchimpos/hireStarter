@@ -36,8 +36,8 @@ class EditProfileScreen extends React.Component {
       connections: [],
       description: "",
       email: "",
-      image1: "https://retohercules.com/images/transparent-to-the-user-8.png",
-      image2: "https://retohercules.com/images/transparent-to-the-user-8.png",
+      image1: "https://cdn4.iconfinder.com/data/icons/eldorado-user/40/add_friend-512.png",
+      image2: "https://cdn0.iconfinder.com/data/icons/striving-for-success-1/66/17-512.png",
       name: "",
       organization: "",
       potentials: [],
@@ -143,7 +143,7 @@ class EditProfileScreen extends React.Component {
   async pickImage(pic_num) {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
+      allowsEditing: false,
       aspect: [4, 3],
       quality: 1
     });

@@ -2,6 +2,7 @@ import React from "react";
 import {
   FlatList,
   Image,
+  ImageBackground,
   Platform,
   StyleSheet,
   Text,
@@ -72,9 +73,13 @@ class MatchesScreen extends React.Component {
   render() {
     if (this.state.loading) {
       return (
-        <View style={styles.container}>
-          <Text>Loading...</Text>
-        </View>     
+        <View style={styles.wrapper}>
+          <ImageBackground
+            source={{uri:'https://miro.medium.com/max/441/1*9EBHIOzhE1XfMYoKz1JcsQ.gif'}}
+            style={styles.gif}
+          >
+          </ImageBackground>
+        </View>
       );
     } else {
       return (
@@ -138,6 +143,15 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     borderWidth: 2,
     borderColor: "#8E2DE2",
+  },
+  gif: {
+    padding: 50
+  },
+  wrapper: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
 
