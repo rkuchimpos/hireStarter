@@ -19,6 +19,9 @@ import ToggleSwitch from 'toggle-switch-react-native'
 
 const { width } = Dimensions.get("window");
 
+var ACTION_TIMER = 400;
+var _holdButtonTimer = 0;
+
 function titleCase(string) {
   var sentence = string.toLowerCase().split(" ");
   for (var i = 0; i < sentence.length; i++) {
@@ -43,8 +46,9 @@ class EditProfileScreen extends React.Component {
       potentials: [],
       recruiter: false,
       skills: [],
+      uid: this.navigation.getParam("uid", "NO-UID"),
       skillInputText: "",
-      uid: this.navigation.getParam("uid", "NO-UID")
+      selectedSkillName: ""
     };
     this.newUser = this.navigation.getParam("newUser", false);
     if (this.newUser) {
@@ -127,7 +131,7 @@ class EditProfileScreen extends React.Component {
     }
   }
 
-  addSkillListener = () => {
+  handleAddSkill = () => {
     const value  = this.state.skillInputText;
     console.log(value);
     if (value == "") { return; }
@@ -138,6 +142,14 @@ class EditProfileScreen extends React.Component {
     this.setState({ skillInputText: "" });
     // TODO: take these out later
     console.log(this.state.skills);
+  }
+
+  handleDeleteSkill(skillname) {
+    var index = this.state.skills.indexOf(skillname);
+    if (index > -1) {
+      this.state.skills.splice(index, 1);
+      this.setState({ skills: this.state.skills });
+    }
   }
 
   async pickImage(pic_num) {
@@ -233,27 +245,33 @@ class EditProfileScreen extends React.Component {
           />
         </View>
         <Text style={styles.categoryHeader}>Skills</Text>
+        <Text style={styles.note}>Tap a skill to delete.</Text>
         <View style={styles.skillList}>
           {this.state.skills.map(skill => (
-            <View style={{ marginRight: 5, marginBottom: 5 }} key={skill}>
-              <Skill skill={skill} />
+            <View key={skill}>
+              <TouchableOpacity
+                style={ {marginRight: 5, marginBottom: 5} }
+                onPress={() => this.handleDeleteSkill(skill)}
+              >
+                <Skill skill={skill}/>
+              </TouchableOpacity>
             </View>
           ))}
         </View>
-        <View style={{ backgroundColor: "#fff" }}>
+        <View style={[styles.row, {flex: 5, backgroundColor: "#fff" }]}>
           <TextInput
             style={styles.TextInputField}
-            placeholder="New Skill Name"
+            placeholder="Input new skill"
             value={this.state.skillInputText}
             onChangeText={value => this.setState({ skillInputText: value})}
           />
-        </View>
-        <TouchableOpacity
+          <TouchableOpacity
             style={styles.button}
-            onPress={this.addSkillListener}
+            onPress={this.handleAddSkill}
           >
-            <Text style={styles.text}> Add Skill </Text>
-        </TouchableOpacity>
+            <Text style={styles.buttonText}> Add </Text>
+          </TouchableOpacity>
+        </View>
         <Text style={styles.categoryHeader}>Organization</Text>
         <View style={{ backgroundColor: "#fff" }}>
           <TextInput
@@ -296,6 +314,24 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#e5e5e5"
   },
+  note: {
+    marginBottom: 10,
+    marginLeft: 10,
+    color: "gray"
+  },
+  row: {
+    flexDirection: "row",
+  },
+  button: {
+    backgroundColor: '#4A00E0',
+    alignContent: "center",
+    justifyContent: "center",
+    paddingHorizontal: 10
+  },
+  buttonText: {
+    fontSize: 18,
+    color: "#ffffff"
+  },
   profilePhoto: {
     width: width / 2 - 2,
     height: width / 2 - 2
@@ -306,18 +342,20 @@ const styles = StyleSheet.create({
     margin: 10
   },
   TextInputField: {
+    flex: 4,
     marginHorizontal: 15,
     marginVertical: 10
   },
   text: {
-    color: "#ffffff"
+    color: "#ffffff",
+
   },
   switch: {
     marginTop: 20,
     marginHorizontal: 10
   },
   skillList: {
-    marginTop: 20,
+    marginBottom: 5,
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center"
