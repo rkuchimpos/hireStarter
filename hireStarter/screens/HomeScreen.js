@@ -2,6 +2,7 @@ import React from "react";
 import {
   Button,
   Image,
+  ImageBackground,
   Modal,
   Platform,
   StyleSheet,
@@ -31,18 +32,22 @@ class HomeScreen extends React.Component {
     };
   }
 
-  componentDidMount() {
-    ProfileAPI.getUserData(this.state.uid).then((result) => {
-      this.setState({ photo: result.image1 })
-    })
+  fetchCards() {
     HomeAPI.fetchCards(this.state.uid).then((result) => {
       ProfileAPI.getConnections(result).then((data) => {
         this.setState({
           cards: data
-        })
-        this.setState({ loading: false })
-      })
-    })
+        });
+        this.setState({ loading: false });
+      });
+    });
+  }
+
+  componentDidMount() {
+    ProfileAPI.getUserData(this.state.uid).then((result) => {
+      this.setState({ photo: result.image1 })
+    });
+    this.fetchCards();
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -117,8 +122,12 @@ class HomeScreen extends React.Component {
   render() {
     if (this.state.loading) {
       return (
-        <View style={styles.container}>
-          <Text>Loading...</Text>
+        <View style={styles.wrapper}>
+          <ImageBackground
+            source={{uri:'https://miro.medium.com/max/441/1*9EBHIOzhE1XfMYoKz1JcsQ.gif'}}
+            style={styles.gif}
+          >
+          </ImageBackground>
         </View>
       );
     } else {
@@ -328,6 +337,15 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     borderWidth: 2,
     borderColor: "#fff"
+  },
+  gif: {
+    padding: 50
+  },
+  wrapper: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
 
