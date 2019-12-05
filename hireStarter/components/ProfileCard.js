@@ -32,6 +32,7 @@ class ProfileCard extends React.Component {
               showPagination
             />
           </View>
+          <ScrollView>
           <View style={styles.profileInfo}>
             <Text style={styles.name}>{this.props.name}</Text>
             <Text style={styles.subtitle}>{this.props.organization}</Text>
@@ -45,6 +46,7 @@ class ProfileCard extends React.Component {
               ))}
             </View>
           </View>
+          </ScrollView>
         </View>
       </View>
     );
@@ -81,7 +83,7 @@ const styles = StyleSheet.create({
   },
   profileInfo: {
     margin: 10,
-    height: 220,
+    //height: 220,
   },
   name: {
     //fontWeight: "bold",
