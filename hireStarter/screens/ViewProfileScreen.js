@@ -2,11 +2,13 @@ import React from "react";
 import {
   Dimensions,
   Image,
+  Linking,
   Platform,
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
+  TouchableWithoutFeedback,
   View
 } from "react-native";
 import Ionicon from "react-native-vector-icons/Ionicons";
@@ -99,7 +101,9 @@ class ViewProfileScreen extends React.Component {
                   size={16}
                   style={{ marginRight: 5 }}
                 />
-                <Text style={styles.subtext}>{this.state.email}</Text>
+                <TouchableWithoutFeedback onPress={() => Linking.openURL(`mailto:${this.state.email}`)}>
+                  <Text style={styles.link}>{this.state.email}</Text>
+                </TouchableWithoutFeedback>
               </View>
             </View>
             <View style={styles.section}>
@@ -164,6 +168,10 @@ const styles = StyleSheet.create({
   },
   subtext: {
     color: "#404040",
+    fontSize: 14
+  },
+  link: {
+    color: "#3376ff",
     fontSize: 14
   },
   skillList: {
