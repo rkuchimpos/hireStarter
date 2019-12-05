@@ -2,7 +2,6 @@ import * as firebase from 'firebase'
 import 'firebase/auth'
 import 'firebase/firestore'
 
-
 /**
  * Wrapper for Tinder functionality (e.g., match checking).
  * @class
@@ -64,20 +63,27 @@ const HomeAPI = {
 	 * @return {Object} A formatted JSON object that describes the user.
 	 */
 	fetchCards: async (uid) => {
+		thresholdMin = 0.5
 		collection = firebase.firestore().collection('users')
 		own_profile = await collection.doc(`${uid}`).get()
 		own_data = own_profile.data()
-		prof_type = own_data.recruiter;
+		own_skills = own_data.skills
+		pref_type = !own_data.recruiter;
+
 		likes = own_data.potentials;
-		docs = await collection.get();
+		docs = await collection.where("recruiter", "==", pref_type).limit(50).get();
 
 		card_ids = [];
 		docs.forEach(doc => {
 			const data = doc.data()
-			if (!likes.includes(data.uid) && (data.recruiter != prof_type)) {
+			intersection = own_skills.filter(x => data.skills.includes(x))
+			threshold = intersection.length/own_skills.length
+			console.log(threshold)
+			if (!(likes.includes(data.uid)) && (threshold >= thresholdMin)) {
 				card_ids.push(data.uid)
 			}
 		});
+		console.log(card_ids.length)
 		return card_ids;
 	}
 }

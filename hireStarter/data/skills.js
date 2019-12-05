@@ -21,5 +21,17 @@ export const skills = [
   "Linux",
   "QA & Testing",
   "Game Development",
-  "Virtual Reality"
+  "Virtual Reality",
+  "C++",
+  "Python",
+  "Javascript",
+  "Java",
+  "C#",
+  "C",
+  "Lisp",
+  "PHP",
+  "React",
+  "React-Native",
+  "MySQL",
+  "PostgreSQL"
 ];
