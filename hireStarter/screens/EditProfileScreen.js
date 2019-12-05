@@ -15,7 +15,7 @@ import { withFirebaseHOC, ProfileAPI } from "../config/Firebase";
 import SwitchSelector from "react-native-switch-selector";
 import Skill from "../components/Skill";
 import Ionicon from "react-native-vector-icons/Ionicons";
-import ToggleSwitch from 'toggle-switch-react-native'
+import ToggleSwitch from "toggle-switch-react-native";
 
 const { width } = Dimensions.get("window");
 
@@ -39,8 +39,10 @@ class EditProfileScreen extends React.Component {
       connections: [],
       description: "",
       email: "",
-      image1: "https://cdn4.iconfinder.com/data/icons/eldorado-user/40/add_friend-512.png",
-      image2: "https://cdn0.iconfinder.com/data/icons/striving-for-success-1/66/17-512.png",
+      image1:
+        "https://cdn4.iconfinder.com/data/icons/eldorado-user/40/add_friend-512.png",
+      image2:
+        "https://cdn0.iconfinder.com/data/icons/striving-for-success-1/66/17-512.png",
       name: "",
       organization: "",
       potentials: [],
@@ -66,7 +68,9 @@ class EditProfileScreen extends React.Component {
         console.log(this.state);
       });
     }
-    this.navigation.setParams({ referencedSaveProfile: this.updateUserData.bind(this) });
+    this.navigation.setParams({
+      referencedSaveProfile: this.updateUserData.bind(this)
+    });
   }
 
   /**
@@ -85,14 +89,14 @@ class EditProfileScreen extends React.Component {
     return {
       title: "My Profile",
       headerRight: () => (
-      <View style={styles.headerRight}>
-        <TouchableOpacity
-          style={styles.headerButton}
-          onPress={() => navigation.state.params.referencedSaveProfile()}
-        >
-          <Ionicon name="ios-save" color="#fff" size={25} />
-        </TouchableOpacity>
-      </View>
+        <View style={styles.headerRight}>
+          <TouchableOpacity
+            style={styles.headerButton}
+            onPress={() => navigation.state.params.referencedSaveProfile()}
+          >
+            <Ionicon name="ios-save" color="#fff" size={25} />
+          </TouchableOpacity>
+        </View>
       )
     };
   };
@@ -132,9 +136,11 @@ class EditProfileScreen extends React.Component {
   }
 
   handleAddSkill = () => {
-    const value  = this.state.skillInputText;
+    const value = this.state.skillInputText;
     console.log(value);
-    if (value == "") { return; }
+    if (value == "") {
+      return;
+    }
 
     updatedSkills = this.state.skills;
     updatedSkills.push(value);
@@ -142,7 +148,7 @@ class EditProfileScreen extends React.Component {
     this.setState({ skillInputText: "" });
     // TODO: take these out later
     console.log(this.state.skills);
-  }
+  };
 
   handleDeleteSkill(skillname) {
     var index = this.state.skills.indexOf(skillname);
@@ -178,131 +184,136 @@ class EditProfileScreen extends React.Component {
     let { image1, image2 } = this.state;
 
     return (
-      <KeyboardAvoidingView behavior="padding" enabled style={styles.container}>
-      <ScrollView>
-        <View style={{ flexDirection: "row" }}>
-          <TouchableOpacity
-            style={{
-              flex: 1,
-              height: width / 2,
-              width: width / 2,
-              borderWidth: 1,
-              borderColor: "#000000"
-            }}
-            onPress={() => {
-              this.pickImage(1);
-            }}
-          >
-            {image1 && (
-              <Image source={{ uri: image1 }} style={styles.profilePhoto} />
-            )}
-          </TouchableOpacity>
+      <KeyboardAvoidingView
+        behavior="padding"
+        enabled
+        keyboardVerticalOffset={100}
+        style={styles.container}
+      >
+        <ScrollView>
+          <View style={{ flexDirection: "row" }}>
+            <TouchableOpacity
+              style={{
+                flex: 1,
+                height: width / 2,
+                width: width / 2,
+                borderWidth: 1,
+                borderColor: "#000000"
+              }}
+              onPress={() => {
+                this.pickImage(1);
+              }}
+            >
+              {image1 && (
+                <Image source={{ uri: image1 }} style={styles.profilePhoto} />
+              )}
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={{
-              height: width / 2,
-              width: width / 2,
-              borderWidth: 1,
-              borderColor: "#000000"
-            }}
-            onPress={() => {
-              this.pickImage(2);
-            }}
-          >
-            {image2 && (
-              <Image source={{ uri: image2 }} style={styles.profilePhoto} />
-            )}
-          </TouchableOpacity>
-        </View>
-        <Text style={styles.categoryHeader}>Name</Text>
-        <View style={{ backgroundColor: "#fff" }}>
-          <TextInput
-            style={styles.TextInputField}
-            multiline
-            placeholder="Tell us your name!"
-            value={this.state.name}
-            onChangeText={value => this.changeName(value)}
-          />
-        </View>
-        <Text style={styles.categoryHeader}>Email</Text>
-        <View style={{ backgroundColor: "#fff" }}>
-          <TextInput
-            style={styles.TextInputField}
-            multiline
-            placeholder="Enter your email!"
-            value={this.state.email}
-            onChangeText={value => this.changeEmail(value)}
-          />
-        </View>
-        <Text style={styles.categoryHeader}>City</Text>
-        <View style={{ backgroundColor: "#fff" }}>
-          <TextInput
-            style={styles.TextInputField}
-            multiline
-            placeholder="Enter your location!"
-            value={this.state.city}
-            onChangeText={value => this.changeCity(value)}
-          />
-        </View>
-        <Text style={styles.categoryHeader}>Skills</Text>
-        <Text style={styles.note}>Tap a skill to delete.</Text>
-        <View style={styles.skillList}>
-          {this.state.skills.map(skill => (
-            <View key={skill}>
-              <TouchableOpacity
-                style={ {marginRight: 5, marginBottom: 5} }
-                onPress={() => this.handleDeleteSkill(skill)}
-              >
-                <Skill skill={skill}/>
-              </TouchableOpacity>
-            </View>
-          ))}
-        </View>
-        <View style={[styles.row, {flex: 5, backgroundColor: "#fff" }]}>
-          <TextInput
-            style={styles.TextInputField}
-            placeholder="Input new skill"
-            value={this.state.skillInputText}
-            onChangeText={value => this.setState({ skillInputText: value})}
-          />
-          <TouchableOpacity
-            style={styles.button}
-            onPress={this.handleAddSkill}
-          >
-            <Text style={styles.buttonText}> Add </Text>
-          </TouchableOpacity>
-        </View>
-        <Text style={styles.categoryHeader}>Organization</Text>
-        <View style={{ backgroundColor: "#fff" }}>
-          <TextInput
-            style={styles.TextInputField}
-            multiline
-            placeholder="Enter your organization!"
-            value={this.state.organization}
-            onChangeText={value => this.changeOrganization(value)}
-          />
-        </View>
-        <Text style={styles.categoryHeader}>About Me</Text>
-        <View style={{ backgroundColor: "#fff" }}>
-          <TextInput
-            style={styles.TextInputField}
-            multiline
-            placeholder="Tell us about yourself!"
-            value={this.state.description}
-            onChangeText={value => this.changeDescription(value)}
-          />
-        </View>
-        <View style={styles.switch}>
-        <ToggleSwitch
-          isOn={this.state.recruiter}
-          onColor="green"
-          offColor="red"
-          size="large"
-          onToggle={isOn => this.changeUserType()}
-        />
-        <Text style={styles.TextInputField}>Are you a recruiter?</Text>
-        </View>
-      </ScrollView>
+            <TouchableOpacity
+              style={{
+                height: width / 2,
+                width: width / 2,
+                borderWidth: 1,
+                borderColor: "#000000"
+              }}
+              onPress={() => {
+                this.pickImage(2);
+              }}
+            >
+              {image2 && (
+                <Image source={{ uri: image2 }} style={styles.profilePhoto} />
+              )}
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.categoryHeader}>Name</Text>
+          <View style={{ backgroundColor: "#fff" }}>
+            <TextInput
+              style={styles.TextInputField}
+              multiline
+              placeholder="Tell us your name!"
+              value={this.state.name}
+              onChangeText={value => this.changeName(value)}
+            />
+          </View>
+          <Text style={styles.categoryHeader}>Email</Text>
+          <View style={{ backgroundColor: "#fff" }}>
+            <TextInput
+              style={styles.TextInputField}
+              multiline
+              placeholder="Enter your email!"
+              value={this.state.email}
+              onChangeText={value => this.changeEmail(value)}
+            />
+          </View>
+          <Text style={styles.categoryHeader}>City</Text>
+          <View style={{ backgroundColor: "#fff" }}>
+            <TextInput
+              style={styles.TextInputField}
+              multiline
+              placeholder="Enter your location!"
+              value={this.state.city}
+              onChangeText={value => this.changeCity(value)}
+            />
+          </View>
+          <Text style={styles.categoryHeader}>Skills</Text>
+          <Text style={styles.note}>Tap a skill to delete.</Text>
+          <View style={styles.skillList}>
+            {this.state.skills.map(skill => (
+              <View key={skill}>
+                <TouchableOpacity
+                  style={{ marginRight: 5, marginBottom: 5 }}
+                  onPress={() => this.handleDeleteSkill(skill)}
+                >
+                  <Skill skill={skill} />
+                </TouchableOpacity>
+              </View>
+            ))}
+          </View>
+          <View style={[styles.row, { flex: 5, backgroundColor: "#fff" }]}>
+            <TextInput
+              style={styles.TextInputField}
+              placeholder="Input new skill"
+              value={this.state.skillInputText}
+              onChangeText={value => this.setState({ skillInputText: value })}
+            />
+            <TouchableOpacity
+              style={styles.button}
+              onPress={this.handleAddSkill}
+            >
+              <Text style={styles.buttonText}> Add </Text>
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.categoryHeader}>Organization</Text>
+          <View style={{ backgroundColor: "#fff" }}>
+            <TextInput
+              style={styles.TextInputField}
+              multiline
+              placeholder="Enter your organization!"
+              value={this.state.organization}
+              onChangeText={value => this.changeOrganization(value)}
+            />
+          </View>
+          <Text style={styles.categoryHeader}>About Me</Text>
+          <View style={{ backgroundColor: "#fff" }}>
+            <TextInput
+              style={styles.TextInputField}
+              multiline
+              placeholder="Tell us about yourself!"
+              value={this.state.description}
+              onChangeText={value => this.changeDescription(value)}
+            />
+          </View>
+          <View style={styles.switch}>
+            <ToggleSwitch
+              isOn={this.state.recruiter}
+              onColor="green"
+              offColor="red"
+              size="large"
+              onToggle={isOn => this.changeUserType()}
+            />
+            <Text style={styles.TextInputField}>Are you a recruiter?</Text>
+          </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     );
   }
@@ -320,10 +331,10 @@ const styles = StyleSheet.create({
     color: "gray"
   },
   row: {
-    flexDirection: "row",
+    flexDirection: "row"
   },
   button: {
-    backgroundColor: '#4A00E0',
+    backgroundColor: "#4A00E0",
     alignContent: "center",
     justifyContent: "center",
     paddingHorizontal: 10
@@ -347,8 +358,7 @@ const styles = StyleSheet.create({
     marginVertical: 10
   },
   text: {
-    color: "#ffffff",
-
+    color: "#ffffff"
   },
   switch: {
     marginTop: 20,
