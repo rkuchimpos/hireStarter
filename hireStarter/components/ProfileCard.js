@@ -32,7 +32,6 @@ class ProfileCard extends React.Component {
               showPagination
             />
           </View>
-          <ScrollView>
           <View style={styles.profileInfo}>
             <Text style={styles.name}>{this.props.name}</Text>
             <Text style={styles.subtitle}>{this.props.organization}</Text>
@@ -46,7 +45,6 @@ class ProfileCard extends React.Component {
               ))}
             </View>
           </View>
-          </ScrollView>
         </View>
       </View>
     );
