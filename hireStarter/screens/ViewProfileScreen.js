@@ -3,6 +3,7 @@ import {
   Dimensions,
   Image,
   Linking,
+  Modal,
   Platform,
   ScrollView,
   StyleSheet,
@@ -15,8 +16,9 @@ import Ionicon from "react-native-vector-icons/Ionicons";
 import SwiperFlatList from "react-native-swiper-flatlist";
 import Skill from "../components/Skill";
 import { withFirebaseHOC, ProfileAPI } from "../config/Firebase";
+import ImageZoom from "react-native-image-pan-zoom";
 
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 class ViewProfileScreen extends React.Component {
   constructor(props) {
@@ -27,14 +29,15 @@ class ViewProfileScreen extends React.Component {
       connections: [],
       description: "",
       email: "",
-      image1: "https://retohercules.com/images/transparent-to-the-user-8.png",
-      image2: "https://retohercules.com/images/transparent-to-the-user-8.png",
+      image1: "https://cdn4.iconfinder.com/data/icons/eldorado-user/40/add_friend-512.png",
+      image2: "https://cdn0.iconfinder.com/data/icons/striving-for-success-1/66/17-512.png",
       name: this.navigation.getParam("name"),
       organization: "",
       potentials: [],
       recruiter: false,
       skills: [],
-      uid: this.navigation.getParam("uid", "NO-UID")
+      uid: this.navigation.getParam("uid", "NO-UID"),
+      expandedImage: false
     };
   }
   static navigationOptions = ({ navigation }) => {
@@ -52,20 +55,56 @@ class ViewProfileScreen extends React.Component {
     });
   }
 
+  setModalVisible(visible) {
+    this.setState({ expandedImage: visible });
+  }
+
+  setImage(image_uri) {
+    this.setState({ image_uri: image_uri });
+  }
+
   render() {
     return (
       <View style={styles.container}>
+        <Modal
+          animationType="fade"
+          visible={this.state.expandedImage}
+          onRequestClose={() => this.setModalVisible(false)}
+        >
+          <ImageZoom
+            cropWidth={width}
+            cropHeight={height}
+            imageWidth={width}
+            imageHeight={height}
+          >
+            <Image
+              resizeMode="contain"
+              style={{
+                width: width,
+                height: height
+              }}
+              source={{ uri: this.state.image_uri }}
+            />
+          </ImageZoom>
+        </Modal>
         <ScrollView>
           <View>
             <SwiperFlatList
               index={0}
               data={[this.state.image1, this.state.image2]}
               renderItem={({ item }) => (
-                <Image
-                  resizeMode="cover"
-                  style={styles.image}
-                  source={{ uri: item }}
-                />
+                <TouchableWithoutFeedback
+                  onPress={() => {
+                    this.setModalVisible(true);
+                    this.setImage(item);
+                  }}
+                >
+                  <Image
+                    resizeMode="cover"
+                    style={styles.image}
+                    source={{ uri: item }}
+                  />
+                </TouchableWithoutFeedback>
               )}
               showPagination
             />
@@ -101,7 +140,9 @@ class ViewProfileScreen extends React.Component {
                   size={16}
                   style={{ marginRight: 5 }}
                 />
-                <TouchableWithoutFeedback onPress={() => Linking.openURL(`mailto:${this.state.email}`)}>
+                <TouchableWithoutFeedback
+                  onPress={() => Linking.openURL(`mailto:${this.state.email}`)}
+                >
                   <Text style={styles.link}>{this.state.email}</Text>
                 </TouchableWithoutFeedback>
               </View>
