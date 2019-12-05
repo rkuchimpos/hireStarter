@@ -178,7 +178,7 @@ class EditProfileScreen extends React.Component {
     let { image1, image2 } = this.state;
 
     return (
-      <KeyboardAvoidingView behavior="padding" enabled keyboardVerticalOffset={100} style={styles.container}>
+      <KeyboardAvoidingView behavior="padding" enabled style={styles.container}>
       <ScrollView>
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity

@@ -5,6 +5,8 @@ import {
   ImageBackground,
   Modal,
   Platform,
+  RefreshControl,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -15,26 +17,32 @@ import SimpleLineIcon from "react-native-vector-icons/SimpleLineIcons";
 import Ionicon from "react-native-vector-icons/Ionicons";
 import CardStack, { Card } from "react-native-card-stack-swiper";
 import ProfileCard from "../components/ProfileCard";
-import { withFirebaseHOC, ProfileAPI, HomeAPI, LoadAPI } from '../config/Firebase'
+import {
+  withFirebaseHOC,
+  ProfileAPI,
+  HomeAPI,
+  LoadAPI
+} from "../config/Firebase";
 
 // TODO: Remove back button on home page
 class HomeScreen extends React.Component {
   constructor(props) {
-    super(props)
-    this.navigation = this.props.navigation
+    super(props);
+    this.navigation = this.props.navigation;
     this.state = {
       modalVisible: false,
       photo: null,
       cards: [],
       match: null,
-      uid: this.navigation.getParam('uid', 'NO-UID'),
+      uid: this.navigation.getParam("uid", "NO-UID"),
       loading: true
     };
   }
 
   fetchCards() {
-    HomeAPI.fetchCards(this.state.uid).then((result) => {
-      ProfileAPI.getConnections(result).then((data) => {
+    this.setState({ loading: true });
+    HomeAPI.fetchCards(this.state.uid).then(result => {
+      ProfileAPI.getConnections(result).then(data => {
         this.setState({
           cards: data
         });
@@ -44,8 +52,8 @@ class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
-    ProfileAPI.getUserData(this.state.uid).then((result) => {
-      this.setState({ photo: result.image1 })
+    ProfileAPI.getUserData(this.state.uid).then(result => {
+      this.setState({ photo: result.image1 });
     });
     this.fetchCards();
   }
@@ -57,17 +65,21 @@ class HomeScreen extends React.Component {
         <View style={styles.headerRight}>
           <TouchableOpacity
             style={styles.headerButton}
-            onPress={() => navigation.navigate("EditProfile", {
-              uid: navigation.state.params.uid
-            })}
+            onPress={() =>
+              navigation.navigate("EditProfile", {
+                uid: navigation.state.params.uid
+              })
+            }
           >
             <SimpleLineIcon name="user" color="#fff" size={25} />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.headerButton}
-            onPress={() => navigation.navigate("Matches", {
-              uid: navigation.state.params.uid
-            })}
+            onPress={() =>
+              navigation.navigate("Matches", {
+                uid: navigation.state.params.uid
+              })
+            }
           >
             <SimpleLineIcon name="people" color="#fff" size={25} />
           </TouchableOpacity>
@@ -93,11 +105,11 @@ class HomeScreen extends React.Component {
   // }
   async onSwipedRight(matchProfile) {
     await HomeAPI.addPotential(this.state.uid, matchProfile.uid);
-    console.log("This is not true")
+    console.log("This is not true");
     if (await HomeAPI.checkConnection(this.state.uid, matchProfile.uid)) {
-      console.log("This is true")
+      console.log("This is true");
       HomeAPI.addMatches(this.state.uid, matchProfile.uid);
-      this.setState({ match: matchProfile })
+      this.setState({ match: matchProfile });
       this.setModalVisible(true);
     }
     // console.log(
@@ -124,84 +136,106 @@ class HomeScreen extends React.Component {
       return (
         <View style={styles.wrapper}>
           <ImageBackground
-            source={{uri:'https://miro.medium.com/max/441/1*9EBHIOzhE1XfMYoKz1JcsQ.gif'}}
+            source={{
+              uri:
+                "https://miro.medium.com/max/441/1*9EBHIOzhE1XfMYoKz1JcsQ.gif"
+            }}
             style={styles.gif}
-          >
-          </ImageBackground>
+          ></ImageBackground>
         </View>
       );
     } else {
       return (
-        <View style={styles.container}>
-          {<Modal
-            animationType="fade"
-            transparent
-            visible={this.state.modalVisible}
-            onRequestClose={() => this.setModalVisible(false)}
-          >
-            {/* TODO: Refactor modal content into separate component file */}
-            <View style={styles.modalContent}>
-              <Text
-                style={{
-                  fontSize: 42,
-                  color: "#67ff76",
-                  textAlign: "center",
-                  fontWeight: "bold"
-                }}
-              >
-                Let's go!
-            </Text>
-              <Text style={{ fontSize: 24, color: "#fff", textAlign: "center" }}>
-                You've made a new connection.
-            </Text>
-              {this.state.match && (
-                <View style={{ flexDirection: "row", marginVertical: 30 }}>
-                  <Image
-                    style={styles.modalImage}
-                    source={{ uri: this.state.photo }}
-                  />
-                  <Image
-                    style={styles.modalImage}
-                    source={{ uri: this.state.match.image1 }}
-                  />
-                </View>
-              )}
-              <TouchableOpacity
-                style={{ marginBottom: 15 }}
-                onPress={() => {
-                  this.setModalVisible(false);
-                  this.props.navigation.navigate("ViewProfile", {
-                    uid: this.state.match.uid,
-                    name: this.state.match.name
-                  });
-                }}
-              >
-                <LinearGradient
-                  style={{ borderRadius: 100 }}
-                  colors={["#8E2DE2", "#4A00E0"]}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 0 }}
+        <ScrollView
+          contentContainerStyle={styles.container}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.loading}
+              onRefresh={() => this.fetchCards()}
+            />
+          }
+        >
+          {
+            <Modal
+              animationType="fade"
+              transparent
+              visible={this.state.modalVisible}
+              onRequestClose={() => this.setModalVisible(false)}
+            >
+              {/* TODO: Refactor modal content into separate component file */}
+              <View style={styles.modalContent}>
+                <Text
+                  style={{
+                    fontSize: 42,
+                    color: "#67ff76",
+                    textAlign: "center",
+                    fontWeight: "bold"
+                  }}
                 >
-                  <View style={styles.modalButtonPrimary}>
-                    <Text
-                      style={{ fontSize: 16, color: "#fff", fontWeight: "bold" }}
-                    >
-                      VIEW PROFILE
-                  </Text>
-                  </View>
-                </LinearGradient>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => this.setModalVisible(false)}>
-                <View style={styles.modalButtonSecondary}>
-                  <Text
-                    style={{ fontSize: 16, color: "#fff", fontWeight: "bold" }}
-                  >
-                    KEEP SEARCHING
+                  Let's go!
                 </Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </Modal>}
+                <Text
+                  style={{ fontSize: 24, color: "#fff", textAlign: "center" }}
+                >
+                  You've made a new connection.
+                </Text>
+                {this.state.match && (
+                  <View style={{ flexDirection: "row", marginVertical: 30 }}>
+                    <Image
+                      style={styles.modalImage}
+                      source={{ uri: this.state.photo }}
+                    />
+                    <Image
+                      style={styles.modalImage}
+                      source={{ uri: this.state.match.image1 }}
+                    />
+                  </View>
+                )}
+                <TouchableOpacity
+                  style={{ marginBottom: 15 }}
+                  onPress={() => {
+                    this.setModalVisible(false);
+                    this.props.navigation.navigate("ViewProfile", {
+                      uid: this.state.match.uid,
+                      name: this.state.match.name
+                    });
+                  }}
+                >
+                  <LinearGradient
+                    style={{ borderRadius: 100 }}
+                    colors={["#8E2DE2", "#4A00E0"]}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                  >
+                    <View style={styles.modalButtonPrimary}>
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          color: "#fff",
+                          fontWeight: "bold"
+                        }}
+                      >
+                        VIEW PROFILE
+                      </Text>
+                    </View>
+                  </LinearGradient>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.setModalVisible(false)}>
+                  <View style={styles.modalButtonSecondary}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        color: "#fff",
+                        fontWeight: "bold"
+                      }}
+                    >
+                      KEEP SEARCHING
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </Modal>
+          }
           <View>
             <CardStack
               verticalSwipe={false}
@@ -210,7 +244,7 @@ class HomeScreen extends React.Component {
                   style={{ fontSize: 18, color: "gray", alignSelf: "center" }}
                 >
                   That's all for now.
-              </Text>
+                </Text>
               )}
               ref={swiper => {
                 this.swiper = swiper;
@@ -220,7 +254,7 @@ class HomeScreen extends React.Component {
                 <Card
                   key={item.uid}
                   onSwipedLeft={() => this.onSwipedLeft()}
-                  onSwipedRight={ async () => await this.onSwipedRight(item)}
+                  onSwipedRight={async () => await this.onSwipedRight(item)}
                 >
                   <ProfileCard
                     name={item.name}
@@ -265,7 +299,7 @@ class HomeScreen extends React.Component {
               <Ionicon name="ios-checkmark" size={45} color="#fff" />
             </TouchableOpacity>
           </View>
-        </View>
+        </ScrollView>
       );
     }
   }
