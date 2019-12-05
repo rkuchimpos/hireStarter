@@ -12,26 +12,81 @@ import {
 } from "react-native";
 import SwiperFlatList from "react-native-swiper-flatlist";
 import Skill from "./Skill";
+import ImageZoom from "react-native-image-pan-zoom";
 
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
-function ProfilePhotoGallery({ styles, photos, expanded }) {
-  return (
-    <View>
-      <SwiperFlatList
-        index={0}
-        data={photos}
-        renderItem={({ item }) => (
-          <Image
-            resizeMode="cover"
-            style={expanded ? styles.imageInExpandedCard : styles.image}
-            source={{ uri: item }}
+class ProfilePhotoGallery extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      expandedImage: false
+    };
+  }
+
+  setModalVisible(visible) {
+    this.setState({ expandedImage: visible });
+  }
+
+  setImage(image_uri) {
+    this.setState({ image_uri: image_uri });
+  }
+
+  render() {
+    return (
+      <View>
+        <View style={this.props.styles.imageModal}>
+          <Modal
+            animationType="fade"
+            visible={this.state.expandedImage}
+            onRequestClose={() => this.setModalVisible(false)}
+          >
+            <ImageZoom
+              cropWidth={width}
+              cropHeight={height}
+              imageWidth={width}
+              imageHeight={height}
+            >
+              <Image
+                resizeMode="contain"
+                style={{
+                  width: width,
+                  height: height
+                }}
+                source={{ uri: this.state.image_uri }}
+              />
+            </ImageZoom>
+          </Modal>
+        </View>
+
+        <View>
+          <SwiperFlatList
+            index={0}
+            data={this.props.photos}
+            renderItem={({ item }) => (
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  this.setModalVisible(true);
+                  this.setImage(item);
+                }}
+              >
+                <Image
+                  resizeMode="cover"
+                  style={
+                    this.props.expanded
+                      ? this.props.styles.imageInExpandedCard
+                      : this.props.styles.image
+                  }
+                  source={{ uri: item }}
+                />
+              </TouchableWithoutFeedback>
+            )}
+            showPagination
           />
-        )}
-        showPagination
-      />
-    </View>
-  );
+        </View>
+      </View>
+    );
+  }
 }
 
 function ProfileContent({
@@ -175,6 +230,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center"
+  },
+  imageModal: {
+    flex: 1
   }
 });
 
