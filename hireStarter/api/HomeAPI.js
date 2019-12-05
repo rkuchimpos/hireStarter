@@ -3,6 +3,23 @@ import 'firebase/auth'
 import 'firebase/firestore'
 
 /**
+ * Randomizes given list
+ * 
+ * @param {Array} array A list of objects
+ * @return A list of objects 
+ */
+function shuffleArray(array) {
+  result = array
+  for (var i = result.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = result[i];
+      result[i] = result[j];
+      result[j] = temp;
+  }
+  return result
+}
+
+/**
  * Wrapper for Tinder functionality (e.g., match checking).
  * @class
  */
@@ -63,7 +80,7 @@ const HomeAPI = {
 	 * @return {Object} A formatted JSON object that describes the user.
 	 */
 	fetchCards: async (uid) => {
-		thresholdMin = 0.5
+		thresholdMin = 0.4
 		collection = firebase.firestore().collection('users')
 		own_profile = await collection.doc(`${uid}`).get()
 		own_data = own_profile.data()
@@ -78,13 +95,13 @@ const HomeAPI = {
 			const data = doc.data()
 			intersection = own_skills.filter(x => data.skills.includes(x))
 			threshold = intersection.length/own_skills.length
-			console.log(threshold)
+			//console.log(threshold)
 			if (!(likes.includes(data.uid)) && (threshold >= thresholdMin)) {
 				card_ids.push(data.uid)
 			}
 		});
 		console.log(card_ids.length)
-		return card_ids;
+		return shuffleArray(card_ids);
 	}
 }
 

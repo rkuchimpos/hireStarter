@@ -52,10 +52,21 @@ class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
+    // Load Test Data
+    // LoadAPI.generateRecruiters(100)
+    // LoadAPI.generateRecruitees(100)
     ProfileAPI.getUserData(this.state.uid).then(result => {
       this.setState({ photo: result.image1 });
     });
-    this.fetchCards();
+    this.fetchCards()
+    // HomeAPI.fetchCards(this.state.uid).then(result => {
+    //   ProfileAPI.getConnections(result).then(data => {
+    //     this.setState({
+    //       cards: data
+    //     });
+    //     this.setState({ loading: false });
+    //   });
+    // });
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -91,18 +102,6 @@ class HomeScreen extends React.Component {
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
-  // TEST FUNCTION
-  // testPassedValues() {
-  //   params = this.props.navigation.state.params
-  //   navigation = this.props.navigation
-  //   console.log("UID: " + params.uid)
-  //   console.log("name: " + params.name) // returns undefined
-  //   console.log("email: " + params.email)
-  //   if (params.name == undefined)
-  //     console.log("name2: " + navigation.getParam('name', 'NO-NAME'))
-  //   // console.log("ProperName: " + titleCase(navigation.getParam('name', 'NO-NAME')))
-  //   console.log(params)
-  // }
   async onSwipedRight(matchProfile) {
     await HomeAPI.addPotential(this.state.uid, matchProfile.uid);
     console.log("This is not true");
@@ -112,19 +111,6 @@ class HomeScreen extends React.Component {
       this.setState({ match: matchProfile });
       this.setModalVisible(true);
     }
-    // console.log(
-    //   "UID " +
-    //   this.state.uid +
-    //   " SWIPED RIGHT ON UID " +
-    //   matchProfile.uid
-    // );
-    // // TODO: Replace with real match checking
-    // isMatch = Math.random() <= 0.3;
-    // if (isMatch) {
-    //   console.log("MATCHED WITH UID " + matchProfile.uid);
-    //   this.setState({ matchProfile: matchProfile });
-    //   this.setModalVisible(true);
-    // }
   }
 
   onSwipedLeft() {

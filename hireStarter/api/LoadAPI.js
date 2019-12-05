@@ -54,6 +54,31 @@ const mockCities = [
   "Chicago"
 ]
 
+const mockSchools = [
+  "University of California, Los Angeles",
+  "Univeristy of Washington",
+  "San Francisco University",
+  "New York University",
+  "Chicago University"
+]
+
+const potentialMatches = [
+  "739EufmaitUAcbHWqWYeeBUiQWr2",
+  "mkqT3RdDicPjDrJv1aJvhl5hiwq2",
+  "SrTpWFg01zLCKXGBcy5n8QhErhj1"
+]
+
+function shuffleArray(array) {
+  result = array
+  for (var i = result.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = result[i];
+      result[i] = result[j];
+      result[j] = temp;
+  }
+  return result
+}
+
 const LoadAPI = {
   generateRecruiters: (num) => {
     nameIndex = mockNames.length
@@ -62,7 +87,9 @@ const LoadAPI = {
     orgsIndex = mockOrgs.length
     citiesIndex = mockCities.length
     hqIndex = mockHqs.length
-    for (index = 1; index <= num; index++) {
+    randSkills = shuffleArray(skills)
+    for (i = 101; i <= num+100; i++) {
+      const index = i % 100
       console.log(index % hqIndex)
       data = {
         city: mockCities[index % citiesIndex],
@@ -73,10 +100,10 @@ const LoadAPI = {
         image2: mockHqs[index % hqIndex],
         name: mockNames[index % nameIndex],
         organization: mockOrgs[index % orgsIndex],
-        potentials: ((index % 4) == 0) ? ["mkqT3RdDicPjDrJv1aJvhl5hiwq2"] : [],
+        potentials: ((index % 5) == 0) ? potentialMatches : [],
         recruiter: true,
-        skills: [skills[index % skillsIndex], skills[(index + 1) % skillsIndex], skills[(index + 2) % skillsIndex]],
-        uid: index.toString()
+        skills: [randSkills[index % skillsIndex], randSkills[(index + 1) % skillsIndex], randSkills[(index + 2) % skillsIndex], randSkills[(index + 3) % skillsIndex], randSkills[(index + 4) % skillsIndex]],
+        uid: i.toString()
       }
       firebase.firestore().collection('users').doc(`${data.uid}`).set(data)
       .then(function () {
@@ -90,8 +117,37 @@ const LoadAPI = {
     num_range = num*100000
     nameIndex = mockNames.length
     photoIndex = mockProfilePhotos.length
-    for (index = 100000; index <= num; index++) {
-      
+    nameIndex = mockNames.length
+    photoIndex = mockProfilePhotos.length
+    skillsIndex = skills.length
+    orgsIndex = mockOrgs.length
+    citiesIndex = mockCities.length
+    hqIndex = mockHqs.length
+    randNames = shuffleArray(mockNames)
+    randProfiles = shuffleArray(mockProfilePhotos)
+    randSkills = shuffleArray(skills)
+    for (i = 100001; i <= num+100000; i++) {
+      const index = i % 100000
+      data = {
+        city: mockCities[index % citiesIndex],
+        connections: [],
+        description: "Hello, I'm interested in meeting awesome companies on this amazing platform. If you're interested in my skillset, swipe right and we might be a match!",
+        email: "student@email.com",
+        image1: randProfiles[index % photoIndex],
+        image2: "https://i.imgur.com/S4nvQze.png",
+        name: randNames[index % nameIndex],
+        organization: mockSchools[index % citiesIndex],
+        potentials: ((index % 5) == 0) ? potentialMatches : [],
+        recruiter: false,
+        skills: [randSkills[index % skillsIndex], randSkills[(index + 1) % skillsIndex], randSkills[(index + 2) % skillsIndex], randSkills[(index + 3) % skillsIndex], randSkills[(index + 4) % skillsIndex]],
+        uid: i.toString()
+      }
+      firebase.firestore().collection('users').doc(`${data.uid}`).set(data)
+      .then(function () {
+        console.log("Document successfully created!")
+      }).catch(function (error) {
+        console.log("Error creating document:", error);
+      });
     }
   },
 }

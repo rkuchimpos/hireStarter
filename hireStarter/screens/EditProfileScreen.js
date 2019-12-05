@@ -61,11 +61,9 @@ class EditProfileScreen extends React.Component {
 
   // Loads data from Firestore here
   componentDidMount() {
-    console.log(this.state);
     if (!this.newUser) {
       ProfileAPI.getUserData(this.state.uid).then(result => {
         this.setState(result);
-        console.log(this.state);
       });
     }
     this.navigation.setParams({
@@ -146,8 +144,6 @@ class EditProfileScreen extends React.Component {
     updatedSkills.push(value);
     this.setState({ skills: updatedSkills });
     this.setState({ skillInputText: "" });
-    // TODO: take these out later
-    console.log(this.state.skills);
   };
 
   handleDeleteSkill(skillname) {
@@ -168,14 +164,23 @@ class EditProfileScreen extends React.Component {
 
     if (!result.cancelled) {
       if (pic_num == 1) {
-        console.log(result);
         this.setState({
-          image1: await ProfileAPI.uploadImage(this.state.uid, 1, result.uri)
-        });
+          image1: "https://miro.medium.com/max/441/1*9EBHIOzhE1XfMYoKz1JcsQ.gif"
+        })
+        ProfileAPI.uploadImage(this.state.uid, 1, result.uri).then(result => {
+          this.setState({
+            image1: result
+          })
+        })
       } else if (pic_num == 2) {
         this.setState({
-          image2: await ProfileAPI.uploadImage(this.state.uid, 2, result.uri)
-        });
+          image2: "https://miro.medium.com/max/441/1*9EBHIOzhE1XfMYoKz1JcsQ.gif"
+        })
+        ProfileAPI.uploadImage(this.state.uid, 2, result.uri).then(result => {
+          this.setState({
+            image2: result
+          })
+        })
       }
     }
   }

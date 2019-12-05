@@ -208,8 +208,7 @@ const styles = StyleSheet.create({
     height: 350
   },
   profileInfo: {
-    margin: 10,
-    height: 220
+    margin: 10
   },
   name: {
     //fontWeight: "bold",
