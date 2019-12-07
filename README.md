@@ -1,5 +1,6 @@
 # hireStarter
-A human approach to talent search
+A human approach to talent search.
+
 Demo: https://www.youtube.com/watch?v=0Y_zfwXHshM
 
 # Development Setup
